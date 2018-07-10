@@ -129,7 +129,7 @@
                                   <br>
                                 <div class="footer">
                                     <hr>                                    
-                                    <a href="liquidaciondet2.php?curso='.$i.'">
+                                    <a href="../control/reportes/liquidaciondet2.php?curso='.$i.'">
                                         <p align="rigth">Descargar plantilla</p>
                                     </a>
                                     <a href="table.php?curso='.$i.'">

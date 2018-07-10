@@ -47,7 +47,7 @@
             
             <ul class="nav">
                 <li>
-                    <a href="index.html">
+                    <a href="../index.php">
                         <i class="pe-7s-graph"></i>
                         <p>Administrativo</p>
                     </a>

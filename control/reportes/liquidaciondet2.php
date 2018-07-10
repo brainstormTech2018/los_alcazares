@@ -1,5 +1,5 @@
 <?php
-	require 'excell/Classes/PHPExcel.php';
+	require '../../libs/excell/Classes/PHPExcel.php';
 	$curso=$_GET['curso'];
 	/** Se agrega la libreria PHPExcel */
  
