@@ -18,7 +18,7 @@ switch ($accion) {
 
 	  $sql = "SELECT estudiante_nombre, estudiante_apellido FROM tbl_estudiantes WHERE estudiante_documento = '$documento'";
 	  
-		$query = mysqli_query($con, $sql);
+		$query = mysqli_query($link, $sql);
 		if(mysqli_num_rows($query) > 0){
 			if($query){
 				if(mysqli_num_rows($query) > 0){
@@ -33,7 +33,7 @@ switch ($accion) {
 			$sql1 = "INSERT INTO tbl_estudiantes(estudiante_tipoDocumento,estudiante_documento,estudiante_nombre,estudiante_apellido,estudiante_activo,estudiante_direccion,estudiante_correo,estudiante_telefono,curso_id)
 												 VALUES ('$tipoDocumento',$documento,'$nombre','$apellido','$activo','$direccion','$email','$telefono','$curso')";
 
-		$query1 = mysqli_query($con, $sql1);
+		$query1 = mysqli_query($link, $sql1);
 				if($query1 > 0){
 			echo('Estudiante Inscrito '.$nombre);
 			

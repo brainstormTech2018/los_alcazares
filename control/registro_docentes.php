@@ -17,7 +17,7 @@ switch ($accion) {
 
 	  $sql = "SELECT docente_nombre, docente_apellido FROM tbl_docentes WHERE docente_documento = '$documento'";
 	  
-		$query = mysqli_query($con, $sql);
+		$query = mysqli_query($link, $sql);
 		if(mysqli_num_rows($query) > 0){
 			if($query){
 				if(mysqli_num_rows($query) > 0){
@@ -30,7 +30,7 @@ switch ($accion) {
 		}else{
 			$sql1 = "INSERT INTO tbl_docentes(docente_documento,docente_nombre,docente_apellido,docente_direccion,docente_telefono,docente_email) VALUES (' $documento','$nombre','$apellido','$direccion','$telefono','$email')";
 			
-		$query1 = mysqli_query($con, $sql1);
+		$query1 = mysqli_query($link, $sql1);
 				if($query1 > 0){
 			echo('insertado Empleado '.$nombre.' '.$apellido);
 				}
