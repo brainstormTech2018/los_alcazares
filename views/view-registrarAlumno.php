@@ -1,3 +1,6 @@
+<?php 
+include ('../config/config.php');
+ ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -116,18 +119,18 @@
                                 <h4 class="title">Registro alumno</h4>                                
                             </div>
                             <div class="content">
-                                <form action="control/cliente.php" method="POST">
+                                <form action="../control/registro_alumnos.php" method="POST">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Nombre</label>
-                                                    <input type="text" class="form-control" placeholder="Nombres" name="cli_nombre" required />
+                                                    <input type="text" class="form-control" placeholder="Nombres" name="alu_nombre" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Apellido</label>
-                                                    <input type="text" class="form-control" placeholder="Apellidos" name="cli_apellido" required />
+                                                    <input type="text" class="form-control" placeholder="Apellidos" name="alu_apellido" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -135,7 +138,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Tipo identificación</label>
-                                                    <select class="form-control" name="ofi_nombre" required>
+                                                    <select class="form-control" name="alu_identificacion" required>
                                                         <option value="" disabled selected>Elige una opción</option>
                                                         <option value="C.C.">Cédula de ciudadania</option>
                                                         <option value="T.I.">Tarjeta de identidad</option>
@@ -146,7 +149,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <input type="text" class="form-control" placeholder="Número de documento" name="cli_direccion" required />
+                                                    <input type="text" class="form-control" placeholder="Número de documento" name="alu_documento" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -154,36 +157,44 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Teléfono</label>
-                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="cli_nit" required />
+                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_telefono" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Dirección</label>
-                                                    <input type="text" class="form-control" placeholder="Residencia" name="cli_direccion" required />
+                                                    <input type="text" class="form-control" placeholder="Residencia" name="alu_direccion" required />
                                                 </div>
                                             </div>
                                         </div>
-
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Estado</label>
-                                                    <br>
-                                                    <input type="radio" name="impuesto" value="T"/>Activo<br/>
-                                                    <input type="radio" name="impuesto" value="No"/>Inactivo</p>
+                                                    <label>Correo</label>
+                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_correo" required />
                                                 </div>
                                             </div>
+                                           <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Estado</label>
+                                                    <br>
+                                                    <input type="radio" name="alu_activo" value="1"/>Activo<br/>
+                                                    <input type="radio" name="alu_activo" value="0"/>Inactivo</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            
                                             <div class="col-md-6">
                                                 <label>Ciclo</label>
                                                 <div class="form-group">
-                                                    <select class="form-control" name="ofi_nombre" required>
+                                                    <select class="form-control" name="alu_curso" required>
                                                         <option value="" disabled selected>Elige una opción</option>
-                                                        <option value="3">Cilo 3 - Grado 6° y 7°</option>
-                                                        <option value="4.1">Cilo 4.1 - Grado 8°</option>
-                                                        <option value="4.2">Cilo 4.2 - Grado 9°</option>
-                                                        <option value="5">Cilo 5 - Grado 10°</option>
-                                                        <option value="6">Cilo 6 - Grado 11°</option>
+                                                        <option value="3">Ciclo 3 - Grado 6° y 7°</option>
+                                                        <option value="4.1">Ciclo 4.1 - Grado 8°</option>
+                                                        <option value="4.2">Ciclo 4.2 - Grado 9°</option>
+                                                        <option value="5">Ciclo 5 - Grado 10°</option>
+                                                        <option value="6">Ciclo 6 - Grado 11°</option>
 
                                                     </select>
                                                 </div>
@@ -192,7 +203,7 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar empleado">Registrar</button>
+                                                    <button type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Alumno">Registrar</button>
                                                 </div>
                                             </div>
                                         </div>
