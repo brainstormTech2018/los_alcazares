@@ -13,7 +13,7 @@
 
     <!-- Bootstrap core CSS     -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
-
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     
 
     <!--  Light Bootstrap Table core CSS    -->
@@ -90,12 +90,12 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                           
+                          <a class="text-info"  onclick="listar();">Ver ultimo registro</a>
                         </li>
                         <li>
                              <a class="text-info" data-toggle="modal" data-target="#myModal">
                                 <p>Cargue de notas</p>
-                            </a>
+                             </a>
                         </li>
                         <li>
                             <a href="#">
@@ -117,7 +117,7 @@
                                 <h4 class="title">Relacion de alumnos y notas 1 periodo</h4>
                                 <p class="category">Grado <?php echo $_GET['curso'] ?></p>
                             </div>
-                            <div class="content table-responsive table-full-width">
+                            <div class="content table-responsive table-full-width" id='mytable'>
                                 <table class="table table-hover table-striped">
                                     <thead>
                                         <th>Nombre</th>
@@ -136,22 +136,11 @@
                                         	<td>-</td>
                                             <td>-</td>
                                         </tr>
-                                        <tr>
-                                        	<td></td>
-                                        	<td></td>
-                                        	<td></td>
-                                        	<td></td>
-                                        	<td></td>
-                                            <td></td>
-                                        </tr>
-                                        
                                     </tbody>
                                 </table>
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -163,13 +152,10 @@
                 <p class="copyright pull-right">
                     &copy; <script>document.write(new Date().getFullYear())</script> Realizado por <a href="www.brainstormtechnology.com">Brainstorm Technology</a>
                 </p>
-            </div>
-            
+            </div>            
         </footer>
-
-
     </div>
-</div>
+
 
 <!-- Sart Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -190,19 +176,94 @@
                                 </div>
                               </div>
                               <div class="col-xs-2">
-                                <input class="btn btn-default btn-file" type='submit' name='enviar'  value="Importar"  />
+                                <input class="btn btn-default btn-file" type='submit' name='enviar'  value="Importar"/>
                               </div>
                               <input type="hidden" value="upload" name="action" />
                               <input type="hidden" value="usuarios" name="mod">
                               <input type="hidden" value="masiva" name="acc">
+
                             </form>
+<!-- PROCESO DE CARGA Y PROCESAMIENTO DEL EXCEL-->
+<?php 
+extract($_POST);
+if (isset($_POST['action'])) {
+$action=$_POST['action'];
+}
+
+if (isset($action)== "upload"){
+//cargamos el fichero
+$archivo = $_FILES['excel']['name'];
+$tipo = $_FILES['excel']['type'];
+$destino = "cop_".$archivo;//Le agregamos un prefijo para identificarlo el archivo cargado
+if (copy($_FILES['excel']['tmp_name'],$destino))  "Archivo Cargado Con Éxito";
+else echo "Error Al Cargar el Archivo";
+        
+if (file_exists ("cop_".$archivo)){ 
+/** Llamamos las clases necesarias PHPEcel */
+require_once('../Classes/PHPExcel.php');
+require_once('../Classes/PHPExcel/Reader/Excel2007.php');                  
+// Cargando la hoja de excel
+$objReader = new PHPExcel_Reader_Excel2007();
+$objPHPExcel = $objReader->load("cop_".$archivo);
+$objFecha = new PHPExcel_Shared_Date();       
+// Asignamon la hoja de excel activa
+$objPHPExcel->setActiveSheetIndex(0);
+
+// Importante - conexión con la base de datos 
+$cn = mysql_connect ("localhost","root","") or die ("ERROR EN LA CONEXION CON LA BD");
+$db = mysql_select_db ("colegio_alcazares",$cn) or die ("ERROR AL CONECTAR A LA BD");
+
+// Rellenamos el arreglo con los datos  del archivo xlsx que ha sido subido
+
+$columnas = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
+$filas = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+
+//Creamos un array con todos los datos del Excel importado
+for ($i=4;$i<=$filas;$i++){
+                        
+                        $_DATOS_EXCEL[$i]['nota_1']= $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['nota_2']= $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['nota_3'] = $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['definitiva'] = $objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['activo'] = 1;
+                    }       
+                    $errores=0;
+
+
+foreach($_DATOS_EXCEL as $campo => $valor){
+                        $sql = "INSERT INTO tbl_notas  (nota_1,nota_2,nota_3,nota_definitiva,activo)  VALUES ('";
+                        foreach ($valor as $campo2 => $valor2){
+                            $campo2 == "activo" ? $sql.= $valor2."');" : $sql.= $valor2."','";
+                        }
+
+                        $result = mysql_query($sql);
+                        if (!$result){ echo "sentencia: ".$sql;}
+                    }   
+                    /////////////////////////////////////////////////////////////////////////   
+echo "<hr> <div class='col-xs-12'>
+        <div class='form-group'>";
+          echo "<strong><center>ARCHIVO IMPORTADO CON EXITO, EN TOTAL $campo REGISTROS Y $errores ERRORES</center></strong>";
+echo "</div>
+</div>  ";
+                            //Borramos el archivo que esta en el servidor con el prefijo cop_
+                    unlink($destino);
+                    
+                }
+                    //si por algun motivo no cargo el archivo cop_ 
+                else{
+                    echo "Primero debes cargar el archivo con extencion .xlsx";
+                }
+            }
+        ?>
+<!-- fin cargue -->
+
                             </div>
                         </div>
                     </div>
                 </div>
 </div>
 <!--  End Modal -->
-
+</div>
 </body>
 
  <!--   Core JS Files   -->
@@ -237,5 +298,18 @@
             }
 
         });
-    </script>
+        </script>
+<script>
+        var listar = function(accion){
+           
+             $.get("../control/consulta.php")
+            .done(function(mytable){
+            $("#mytable").html(mytable);
+            });
+      
+        }
+       
+</script>
+
+  
 </html>
