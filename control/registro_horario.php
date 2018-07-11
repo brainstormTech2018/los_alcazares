@@ -7,7 +7,7 @@ include ('../config/config.php');
 
 
 switch ($accion) {
-	case 1://Registro horario 
+	case 1: 
 		$periodoCodigo = $_POST['pe_codigo'];
 		$periodoDesc = $_POST['pe_descripcion'];
 		$periodoFechaI = $_POST['pe_fechaInicio'];
