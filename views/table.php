@@ -118,26 +118,7 @@
                                 <p class="category">Grado <?php echo $_GET['curso'] ?></p>
                             </div>
                             <div class="content table-responsive table-full-width" id='mytable'>
-                                <table class="table table-hover table-striped">
-                                    <thead>
-                                        <th>Nombre</th>
-                                    	<th>Observaciones</th>
-                                    	<th>1 Nota</th>
-                                    	<th>2 Nota</th>
-                                        <th>3 Nota</th>
-                                        <th>Definitiva</th>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                        	<td>-</td>
-                                        	<td>-</td>
-                                        	<td>-</td>
-                                        	<td>-</td>
-                                        	<td>-</td>
-                                            <td>-</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                
                             </div>
                         </div>
                     </div>

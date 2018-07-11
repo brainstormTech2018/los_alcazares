@@ -166,6 +166,7 @@
                     </div>
 
                       <div class="col-md-4">
+                        <a href="views/cursos.php">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Cursos</h4>
@@ -180,6 +181,7 @@
                             </div>
                             </div>
                         </div>
+                        </a>
                     </div>
 
                      <div class="col-md-4">

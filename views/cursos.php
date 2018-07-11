@@ -1,6 +1,3 @@
-<?php 
-include ('../config/config.php');
-?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -61,7 +58,7 @@ include ('../config/config.php');
                     </a>
                 </li>
                 <li class="active">
-                    <a href="user.html">
+                    <a href="user.php">
                         <i class="pe-7s-user"></i>
                         <p>Docente</p>
                     </a>
@@ -81,11 +78,12 @@ include ('../config/config.php');
                     <ul class="nav navbar-nav navbar-left">
                         <li>
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <p>Cursos asignados</p>
+                              
+                                <p>Menú</p>
                             </a>
                         </li>
-                      <li>
-                           
+                        <li class="dropdown">
+                              
                         </li>
                         <li>
                            
@@ -109,46 +107,104 @@ include ('../config/config.php');
                 </div>
             </div>
         </nav>
-
-
         <div class="content">
             <div class="container-fluid">
-              <div class="row">
-
-                    <?php 
-                        for ($i = 1; $i <= 4; $i++) {
-                            echo '<div class="col-md-4">
+                <div class="row">
+                    <div class="col-md-2">
                         <div class="card">
-                            
-                                <div class="header">
-                                    <h4 class="title">'.$i.'</h4>
-                                    <p class="category">
-                                       <img src="../assets\img\approve.png" align="right">
-                                    </p>
-                                </div>
-                                <div class="content">
-                                  <br>
-                                  <br>
-                                  <br>
-                                <div class="footer">
-                                    <hr>                                    
-                                    <a href="../control/reportes/liquidaciondet2.php?curso='.$i.'">
-                                        <p align="rigth">Descargar plantilla</p>
-                                    </a>
-                                    <a href="table.php?curso='.$i.'">
-                                        <p align="left">Cargar</p>
-                                    </a>
-                                </div>
-                                </div>
-                             
+                            <a onclick="listar(3,'<p>Ciclo 3 - Grado 6° y 7°</p>');" href="">
+                            <div class="header">
+                                <h4 class="title" align="center">Ciclo 3</h4>
+                            </div>
+                               </a>
+                            <br>
                         </div>
-                    </div>';
-                        }
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card">
+                            <a onclick="listar(4.1,'<p>Ciclo 4.1 - Grado 8°</p>');" href="">
+                            <div class="header">
+                                <h4 class="title" align="center">Ciclo 4.1</h4>
+                            </div>
+                               </a>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card">
+                            <a onclick="listar(4.2,'<p>Ciclo 4.2 - Grado 9°</p>');" href="">
+                            <div class="header">
+                                <h4 class="title" align="center">Ciclo 4.2</h4>
+                            </div>
+                               </a>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card">
+                            <a onclick="listar(5,'<p>Ciclo 3 - Grado 10°</p>');" href="">
+                            <div class="header">
+                                <h4 class="title" align="center">Ciclo 5</h4>
+                            </div>
+                               </a>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card">
+                            <a onclick="listar(6.1,'<p>Ciclo 6.1 - Grado 11°</p>');" href="">
+                            <div class="header">
+                                <h4 class="title" align="center">Ciclo 6.1</h4>
+                            </div>
+                               </a>
+                            <br>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card">
+                            <a onclick="listar(6.2,'<p>Ciclo 6.2 - Grado 11°</p>');" href="">
+                            <div class="header">
+                                <h4 class="title" align="center">Ciclo 6.2</h4>
+                            </div>
+                               </a>
+                            <br>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Registro de alumnos</h4>
+                                <p class="category">Grado:</p><p id='Grado'> - </p>
+                                <p class="category">Director:</p><p id='Director'> - </p>
+                            </div>
+                            <div class="content table-responsive table-full-width" id='mytable'>
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Estado</th>
+                                        <th>Documento</th>
+                                        
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    ?>
+                   
                 </div>
             </div>
-        </div>
         
 
 
@@ -199,5 +255,17 @@ include ('../config/config.php');
 
         });
     </script>
+    <script>  
+    var listar = function(curso, director){
+       $.ajax({   
+       type: "POST",
+       url:"../control/consulta-detalleCurso.php",
+       data:{"curso":curso},
+       success: function(mytable){       
+         $('#mytable').html(mytable);
+         $('#Grado').html(director);
+       }
+     });}
+   </script>
 
 </html>
