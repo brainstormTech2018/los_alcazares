@@ -121,12 +121,12 @@ include ('../config/config.php');
                                 <h4 class="title">Asignación horario</h4>                                
                             </div>
                             <div class="content">
-                                <form action="../control/registro_alumnos.php" method="POST">
+                                <form action="../control/registro_horario.php" method="POST">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Código</label>
-                                                    <select class="form-control" name="alu_identificacion" required>
+                                                    <select class="form-control" name="pe_codigo" required>
                                                         <option value="" disabled selected>Elige una opción</option>
                                                         <option value="P1">Periodo 1</option>
                                                         <option value="P2">Periodo 2</option>
@@ -137,7 +137,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Descripcion</label>
-                                                    <input type="text" class="form-control" placeholder="Apellidos" name="alu_apellido" required />
+                                                    <input type="text" class="form-control" placeholder="Apellidos" name="pe_descripcion" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -145,7 +145,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Docente</label>
-                                                    <select class="form-control" id="nombreCli" required>
+                                                    <select class="form-control" name="docenteDocumento" required>
                                             <option value="" disabled selected>Elige una opción</option>
                                             <?php 
                                                 $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
@@ -168,7 +168,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Materia</label>
-                                                     <select class="form-control" id="nombreCli" required>
+                                                     <select class="form-control" name="materiaCod" required>
                                             <option value="" disabled selected>Elige una opción</option>
                                             <?php 
                                                 $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
@@ -192,7 +192,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Curso</label>
-                                                      <select class="form-control" id="nombreCli" required>
+                                                      <select class="form-control" name="cursoCod" required>
                                             <option value="" disabled selected>Elige una opción</option>
                                             <?php 
                                                 $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
@@ -214,7 +214,7 @@ include ('../config/config.php');
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Fecha Inicio</label>
-                                                      <input type='text' class="form-control" placeholder='AAAA/MM/dd'/>
+                                                      <input type='text' class="form-control" name="pe_fechaInicio" placeholder='AAAA/MM/dd'/>
 
                                                 </div>
                                                  <script type="text/javascript">
@@ -224,7 +224,7 @@ include ('../config/config.php');
                                             <div class="col-md-3">
                                                 <div class="form-group">
                                                     <label>Fecha Fin</label>
-                                                    <input type='text' class="form-control" placeholder='AAAA/MM/dd'/>
+                                                    <input type='text' class="form-control" name="pe_fechaFin" placeholder='AAAA/MM/dd'/>
    
                                                 </div>
                                             </div>

@@ -30,7 +30,7 @@ switch ($accion) {
 		    }
 
 		}else{
-			$sql1 = "INSERT INTO tbl_estudiantes(estudiante_tipoDocumento,estudiante_documento,estudiante_nombre,estudiante_apellido,estudiante_activo,estudiante_direccion,estudiante_correo,estudiante_telefono,curso_id)
+			$sql1 = "INSERT INTO tbl_estudiantes(estudiante_tipoDocumento,estudiante_documento,estudiante_nombre,estudiante_apellido,estudiante_activo,estudiante_direccion,estudiante_correo,estudiante_telefono,curso_codigo)
 												 VALUES ('$tipoDocumento',$documento,'$nombre','$apellido','$activo','$direccion','$email','$telefono','$curso')";
 
 		$query1 = mysqli_query($link, $sql1);
