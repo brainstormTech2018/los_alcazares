@@ -211,23 +211,6 @@ include ('../config/config.php');
                                         </select>
                                                 </div>
                                             </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Fecha Inicio</label>
-                                                      <input type='text' class="form-control" name="pe_fechaInicio" placeholder='AAAA/MM/dd'/>
-
-                                                </div>
-                                                 <script type="text/javascript">
-                                                   
-                                                    </script>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <div class="form-group">
-                                                    <label>Fecha Fin</label>
-                                                    <input type='text' class="form-control" name="pe_fechaFin" placeholder='AAAA/MM/dd'/>
-   
-                                                </div>
-                                            </div>
                                         </div>
                                                                                 
                                         <div class="row">

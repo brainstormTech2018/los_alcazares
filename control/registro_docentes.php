@@ -4,7 +4,7 @@ include ('../config/config.php');
 
     $accion=$_POST['insertar'];
 
-
+    $notificacion = "";
 
 switch ($accion) {
 	case 1://Registrar docentes
@@ -32,10 +32,27 @@ switch ($accion) {
 			
 		$query1 = mysqli_query($link, $sql1);
 				if($query1 > 0){
-			echo('insertado Empleado '.$nombre.' '.$apellido);
+			$notificacion.="<div class='alert alert-success'>
+	            <div class='container-fluid'>
+					<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+						<i class='material-icons'></i>
+					</button>
+	            	<b>¡Registro exitoso!</b>
+	            </div>
+	        </div>";
+				}else{
+					$notificacion.="<div class='alert alert-danger'>
+						             <div class='container-fluid'>
+										 
+										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+											<i class='material-icons'>clear</i>
+										</button>
+						                 <b>Hubo un error</b>
+						            </div>
+						        </div>";
 				}
 		}
-	
+		echo $notificacion;
 	  break;
 
 	
