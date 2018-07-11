@@ -112,7 +112,7 @@
                 <div class="row">
                     <div class="col-md-2">
                         <div class="card">
-                            <a onclick="listar(3,'<p>Ciclo 3 - Grado 6° y 7°</p>');" href="">
+                            <a onclick="listar(3,'<p>Ciclo 3 - Grado 6° y 7°</p>');" href="#">
                             <div class="header">
                                 <h4 class="title" align="center">Ciclo 3</h4>
                             </div>
@@ -122,7 +122,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="card">
-                            <a onclick="listar(4.1,'<p>Ciclo 4.1 - Grado 8°</p>');" href="">
+                            <a onclick="listar(4.1,'<p>Ciclo 4.1 - Grado 8°</p>');" href="#">
                             <div class="header">
                                 <h4 class="title" align="center">Ciclo 4.1</h4>
                             </div>
@@ -132,7 +132,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="card">
-                            <a onclick="listar(4.2,'<p>Ciclo 4.2 - Grado 9°</p>');" href="">
+                            <a onclick="listar(4.2,'<p>Ciclo 4.2 - Grado 9°</p>');" href="#">
                             <div class="header">
                                 <h4 class="title" align="center">Ciclo 4.2</h4>
                             </div>
@@ -142,7 +142,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="card">
-                            <a onclick="listar(5,'<p>Ciclo 3 - Grado 10°</p>');" href="">
+                            <a onclick="listar(5,'<p>Ciclo 3 - Grado 10°</p>');" href="#">
                             <div class="header">
                                 <h4 class="title" align="center">Ciclo 5</h4>
                             </div>
@@ -152,7 +152,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="card">
-                            <a onclick="listar(6.1,'<p>Ciclo 6.1 - Grado 11°</p>');" href="">
+                            <a onclick="listar(6.1,'<p>Ciclo 6.1 - Grado 11°</p>');" href="#">
                             <div class="header">
                                 <h4 class="title" align="center">Ciclo 6.1</h4>
                             </div>
@@ -162,7 +162,7 @@
                     </div>
                     <div class="col-md-2">
                         <div class="card">
-                            <a onclick="listar(6.2,'<p>Ciclo 6.2 - Grado 11°</p>');" href="">
+                            <a onclick="listar(6.2,'<p>Ciclo 6.2 - Grado 11°</p>');" href="#">
                             <div class="header">
                                 <h4 class="title" align="center">Ciclo 6.2</h4>
                             </div>
