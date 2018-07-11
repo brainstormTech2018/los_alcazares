@@ -229,6 +229,33 @@ include ('../config/config.php');
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Día</label>
+                                                    <select class="form-control" name="pe_codigo" required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <option value="Lunes">Lunes</option>
+                                                        <option value="Martes">Martes</option>
+                                                        <option value="Miercoles">Miercoles</option>
+                                                        <option value="Miercoles">Jueves</option>
+                                                        <option value="Miercoles">Viernes</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Hora Inicio</label>
+                                                    <input type="text" class="form-control" placeholder="00:00 a.m." name="pe_descripcion" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <div class="form-group">
+                                                    <label>Hora Fin</label>
+                                                    <input type="text" class="form-control" placeholder="00:00 a.m." name="pe_descripcion" required />
+                                                </div>
+                                            </div>
+                                        </div>
                                         
                                         <div class="row">
                                             <div class="col-md-12">
