@@ -42,10 +42,9 @@ switch ($accion) {
 	        </div>";
 				}else{
 					$notificacion.="<div class='alert alert-danger'>
-						             <div class='container-fluid'>
-										 
+						             <div class='container-fluid'>										 
 										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
-											<i class='material-icons'>clear</i>
+											clear
 										</button>
 						                 <b>Hubo un error</b>
 						            </div>

@@ -72,6 +72,10 @@ include ('../config/config.php');
     </div>
 
     <div class="main-panel">
+        <a href="#" onclick="limpiar();">
+        <div id="notify" >
+        </div>
+        </a>
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -119,18 +123,18 @@ include ('../config/config.php');
                                 <h4 class="title">Registro alumno</h4>                                
                             </div>
                             <div class="content">
-                                <form action="../control/registro_alumnos.php" method="POST">
+                                <form method="POST" id="client">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Nombre</label>
-                                                    <input type="text" class="form-control" placeholder="Nombres" name="alu_nombre" required />
+                                                    <input type="text" class="form-control" placeholder="Nombres" name="alu_nombre" id="alu_nombre" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Apellido</label>
-                                                    <input type="text" class="form-control" placeholder="Apellidos" name="alu_apellido" required />
+                                                    <input type="text" class="form-control" placeholder="Apellidos" name="alu_apellido" id="alu_apellido" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -138,7 +142,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Tipo identificación</label>
-                                                    <select class="form-control" name="alu_identificacion" required>
+                                                    <select class="form-control" name="alu_identificacion" id="alu_identificacion" required>
                                                         <option value="" disabled selected>Elige una opción</option>
                                                         <option value="C.C.">Cédula de ciudadania</option>
                                                         <option value="T.I.">Tarjeta de identidad</option>
@@ -149,7 +153,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Número</label>
-                                                    <input type="text" class="form-control" placeholder="Número de documento" name="alu_documento" required />
+                                                    <input type="text" class="form-control" placeholder="Número de documento" name="alu_documento" id="alu_documento" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -157,13 +161,13 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Teléfono</label>
-                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_telefono" required />
+                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_telefono" id="alu_telefono" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Dirección</label>
-                                                    <input type="text" class="form-control" placeholder="Residencia" name="alu_direccion" required />
+                                                    <input type="text" class="form-control" placeholder="Residencia" name="alu_direccion" id="alu_direccion" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -171,15 +175,15 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Correo</label>
-                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_correo" required />
+                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_correo" id="alu_correo" required />
                                                 </div>
                                             </div>
                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Estado</label>
                                                     <br>
-                                                    <input type="radio" name="alu_activo" value="1"/>Activo<br/>
-                                                    <input type="radio" name="alu_activo" value="0"/>Inactivo</p>
+                                                    <input type="radio" name="alu_activo" id="alu_activo" value="1"/>Activo<br/>
+                                                    <input type="radio" name="alu_activo" id="alu_activo" value="0"/>Inactivo</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -188,7 +192,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <label>Ciclo</label>
                                                 <div class="form-group">
-                                                    <select class="form-control" name="alu_curso" required>
+                                                    <select class="form-control" name="alu_curso" id="alu_curso" required>
                                                         <option value="" disabled selected>Elige una opción</option>
                                                         <option value="3">Ciclo 3 - Grado 6° y 7°</option>
                                                         <option value="4.1">Ciclo 4.1 - Grado 8°</option>
@@ -203,7 +207,7 @@ include ('../config/config.php');
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Alumno">Registrar</button>
+                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Alumno" onclick="listar(1);">Registrar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -267,5 +271,38 @@ include ('../config/config.php');
         });
     });
 </script>
+<script type="text/javascript">  
+    var listar = function(accion){
+        var identificacion = $("#alu_identificacion").val();
+        var documento = $("#alu_documento").val();
+        var nombre = $("#alu_nombre").val();
+        var apellido = $("#alu_apellido").val();
+        var direccion = $("#alu_direccion").val();
+        var telefono = $("#alu_telefono").val();
+        var email = $("#alu_correo").val();
+        var activo = $("#alu_activo").val();
+        var curso = $("#alu_curso").val();
+
+
+       $.ajax({   
+       type: "POST",
+       url:"../control/registro_alumnos.php",
+       data:{"insertar":accion,"alu_documento":documento,"alu_nombre":nombre, "alu_apellido":apellido, "alu_direccion":direccion, "alu_telefono":telefono, "alu_correo":email, "alu_identificacion":identificacion,"alu_activo":activo, "alu_curso":curso},
+       success: function(notify){       
+         $('#notify').html(notify); 
+         //alert(nombre);        
+       }
+       
+     });}
+   </script>
+
+   <script type="text/javascript">
+    var limpiar = function() {
+     $("#client")[0].reset();
+     $("notify")[0].reset();
+}
+
+   </script>
+
 
 </html>

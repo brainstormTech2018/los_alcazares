@@ -2,7 +2,7 @@
 include ('../config/config.php');
  $accion=$_POST['insertar'];
 
-
+  $notificacion = "";
 
 switch ($accion) {
 	case 1://Registrar docentes
@@ -35,11 +35,27 @@ switch ($accion) {
 
 		$query1 = mysqli_query($link, $sql1);
 				if($query1 > 0){
-			echo('Estudiante Inscrito '.$nombre);
+			$notificacion.="<div class='alert alert-success'>
+	            <div class='container-fluid'>
+					<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+						<i class='material-icons'></i>
+					</button>
+	            	<b>¡Registro exitoso!</b>
+	            </div>
+	        </div>";
 			
+				}else{
+					$notificacion.="<div class='alert alert-danger'>
+						             <div class='container-fluid'>										 
+										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+											clear
+										</button>
+						                 <b>".$sql1."</b>
+						            </div>
+						        </div>";
 				}
 		}
-	
+		echo $notificacion;
 	  break;
 }
 ?>
