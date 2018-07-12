@@ -1,39 +1,37 @@
 <?php 
 include '../config/config.php';
 
-  $sql = "SELECT nota_1,nota_2,nota_3,nota_definitiva FROM `tbl_notas` ORDER BY `nota_id` DESC LIMIT 1";
+  $sql = "SELECT nota_1,nota_2,nota_3,nota_definitiva,concat(estudiante_nombre,' ',estudiante_apellido)q FROM `tbl_notas` INNER JOIN tbl_estudiantes on tbl_notas.estudiante_codigo = tbl_estudiantes.estudiante_documento WHERE nota_fecha = curdate()";
 
  	$resultado = $link->query($sql);
-
-	while($rows = $resultado->fetch_assoc()){
- echo '<table class="table table-hover table-striped">
+$html = "<table class='table table-hover table-striped'>
                                     <thead>
                                         <th>Nombre</th>
-                                    	<th>Observaciones</th>
-                                    	<th>1 Nota</th>
-                                    	<th>2 Nota</th>
+                                        <th>Observaciones</th>
+                                        <th>1 Nota</th>
+                                        <th>2 Nota</th>
                                         <th>3 Nota</th>
                                         <th>Definitiva</th>
                                     </thead>
-                                    <tbody>
-                                        <tr>     
-                                            <td>Felipe</td>
-											<td>observacion</td>
+                                    <tbody>";
+	while($rows = $resultado->fetch_assoc()){
+ $html.='<tr>     
+                                            <td>' . $rows['q'].'</td>
+											<td> - </td>
 							                <td>' . $rows['nota_1'].'</td>
 							                <td>' . $rows['nota_2']. '</td>
 							                <td>' . $rows['nota_3']. '</td>
 							                <td>' . $rows['nota_definitiva']. '</td>
-							            </tr>
-                                    </tbody>
-                                </table>';
+							            </tr>'
+                                   ;
   }
 
-  $link->close();
+$html.= '</tbody>
+     </table>';
 
-
-     
+  $link->close();     
     $resultado->free();
-
+echo $html;
 
 
  							

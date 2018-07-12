@@ -137,15 +137,14 @@ include ('../config/config.php');
                                   <br>
                                 <div class="footer">
                                     <hr>                                    
-                                    <a href="../control/reportes/liquidaciondet2.php?curso='.$rows['curso_codigo'].'">
+                                    <a href="../control/reportes/listaCurso.php?curso='.$rows['curso_codigo'].'&docente=102">
                                         <p align="rigth">Descargar plantilla</p>
                                     </a>
                                     <a href="table.php?curso='.$rows['curso_nombre'].'">
                                         <p align="left">Cargar</p>
                                     </a>
                                 </div>
-                                </div>
-                             
+                                </div>                             
                         </div>
                     </div>';
 }

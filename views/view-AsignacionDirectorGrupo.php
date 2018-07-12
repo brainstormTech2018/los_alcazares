@@ -240,15 +240,7 @@ include ('../config/config.php');
     $('[data-toggle="tooltip"]').tooltip();
 
     $(document).ready(function () {
-        $('#mostrarPass').click(function () {
-            if ($('#password').attr('type') === 'text') {
-                $('#password').attr('type', 'password');
-                $('#mostrarPass').attr('class', 'fa fa-eye');                
-            } else {
-                $('#password').attr('type', 'text');
-                $('#mostrarPass').attr('class', 'fa fa-eye-slash');
-            }
-        });
+        
 
      });
 </script>
@@ -257,7 +249,6 @@ include ('../config/config.php');
         var curso = $("#cursoCod").val();
         var docente = $("#docenteDocumento").val();
 
-       var sql1 = "UPDATE tbl_cursos SET docente_documento = '"+docente+"' WHERE curso_id = "+curso;
        $.ajax({   
        type: "POST",
        url:"../control/asignacion_director.php",

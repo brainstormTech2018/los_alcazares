@@ -118,7 +118,23 @@
                                 <p class="category">Grado <?php echo $_GET['curso'] ?></p>
                             </div>
                             <div class="content table-responsive table-full-width" id='mytable'>
-                                
+                                <table class="table table-hover table-striped">
+                                    <thead>
+                                        <th>Nombre</th>
+                                        <th>Apellido</th>
+                                        <th>Activo</th>
+                                        <th>Documento</th>
+                                        
+                                    </thead>
+                                    <tbody>
+                                        <tr>     
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                            <td>-</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
                             </div>
                         </div>
                     </div>
@@ -201,20 +217,22 @@ $filas = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
 
 //Creamos un array con todos los datos del Excel importado
 for ($i=4;$i<=$filas;$i++){
-                        
+                        $_DATOS_EXCEL[$i]['observacion']= $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue();
                         $_DATOS_EXCEL[$i]['nota_1']= $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue();
                         $_DATOS_EXCEL[$i]['nota_2']= $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue();
                         $_DATOS_EXCEL[$i]['nota_3'] = $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue();
                         $_DATOS_EXCEL[$i]['definitiva'] = $objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['ciclo'] = $objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue();
+                        
                         $_DATOS_EXCEL[$i]['activo'] = 1;
                     }       
                     $errores=0;
 
 
 foreach($_DATOS_EXCEL as $campo => $valor){
-                        $sql = "INSERT INTO tbl_notas  (nota_1,nota_2,nota_3,nota_definitiva,activo)  VALUES ('";
+                        $sql = "INSERT INTO tbl_notas  (estudiante_codigo,nota_1,nota_2,nota_3,nota_definitiva,curso_codigo,activo,nota_fecha)  VALUES ('";
                         foreach ($valor as $campo2 => $valor2){
-                            $campo2 == "activo" ? $sql.= $valor2."');" : $sql.= $valor2."','";
+                            $campo2 == "activo" ? $sql.= $valor2."',now());" : $sql.= $valor2."','";
                         }
 
                         $result = mysql_query($sql);
