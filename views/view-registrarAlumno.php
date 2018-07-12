@@ -299,7 +299,7 @@ include ('../config/config.php');
    <script type="text/javascript">
     var limpiar = function() {
      $("#client")[0].reset();
-     $("notify")[0].reset();
+     document.getElementById('notify').style.display = 'none';}
 }
 
    </script>

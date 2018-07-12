@@ -125,19 +125,46 @@ include ('../config/config.php');
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Código</label>
-                                                    <select class="form-control" name="pe_codigo" required>
+                                                    <label>Periodo</label>
+                                                    <select class="form-control" name="periodo" id="periodo" required>
                                                         <option value="" disabled selected>Elige una opción</option>
-                                                        <option value="P1">Periodo 1</option>
-                                                        <option value="P2">Periodo 2</option>
-                                                        <option value="P3">Periodo 3</option>
+                                                        <?php 
+                                                            $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
+
+                                                            if ($link === false) {
+                                                                die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                            }   
+                                                            $sql = 'SELECT periodo_id, periodo_nombre FROM tbl_periodo';
+                                                            $query = mysqli_query($link, $sql);
+                        
+                                                            while ($valores = mysqli_fetch_array($query)) {                            
+                                                                echo '<option value="'.$valores[periodo_id].'">'.$valores[periodo_nombre].'</option>';
+                                                                
+                                                            }
+                                                        ?>
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Descripcion</label>
-                                                    <input type="text" class="form-control" placeholder="Apellidos" name="pe_descripcion" required />
+                                                    <label>Curso</label>
+                                                    <select class="form-control" name="cursoCod" id="cursoCod"required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <?php 
+                                                            $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
+
+                                                            if ($link === false) {
+                                                                die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                            }   
+                                                            $sql = 'SELECT curso_codigo, curso_nombre FROM tbl_cursos';
+                                                            $query = mysqli_query($link, $sql);
+                        
+                                                            while ($valores = mysqli_fetch_array($query)) {                            
+                                                                echo '<option value="'.$valores[curso_codigo].'">'.$valores[curso_nombre].'</option>';
+                                                                
+                                                            }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -146,72 +173,76 @@ include ('../config/config.php');
                                                 <div class="form-group">
                                                     <label>Docente</label>
                                                     <select class="form-control" name="docenteDocumento" required>
-                                            <option value="" disabled selected>Elige una opción</option>
-                                            <?php 
-                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <?php 
+                                                            $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
 
-                                                if ($link === false) {
-                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
-                                                }   
-                                                $sql = 'SELECT concat(docente_nombre," ",docente_apellido)r, docente_documento FROM tbl_docentes';
-                                                $query = mysqli_query($link, $sql);
-            
-                                                while ($valores = mysqli_fetch_array($query)) {                            
-                                                    echo '<option value="'.$valores[docente_documento].'">'.$valores[r].'</option>';
-                                                    
-                                                }
-                                            ?>
-                                        </select>
-
+                                                            if ($link === false) {
+                                                                die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                            }   
+                                                            $sql = 'SELECT concat(docente_nombre," ",docente_apellido)r, docente_documento FROM tbl_docentes';
+                                                            $query = mysqli_query($link, $sql);
+                        
+                                                            while ($valores = mysqli_fetch_array($query)) {                            
+                                                                echo '<option value="'.$valores[docente_documento].'">'.$valores[r].'</option>';
+                                                                
+                                                            }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Materia</label>
                                                      <select class="form-control" name="materiaCod" required>
-                                            <option value="" disabled selected>Elige una opción</option>
-                                            <?php 
-                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <?php 
+                                                            $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
 
-                                                if ($link === false) {
-                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
-                                                }   
-                                                $sql = 'SELECT materia_codigo, materia_nombre FROM tbl_materias';
-                                                $query = mysqli_query($link, $sql);
-            
-                                                while ($valores = mysqli_fetch_array($query)) {                            
-                                                    echo '<option value="'.$valores[materia_codigo].'">'.$valores[materia_nombre].'</option>';
-                                                    
-                                                }
-                                            ?>
-                                        </select>
+                                                            if ($link === false) {
+                                                                die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                            }   
+                                                            $sql = 'SELECT materia_codigo, materia_nombre FROM tbl_materias';
+                                                            $query = mysqli_query($link, $sql);
+                        
+                                                            while ($valores = mysqli_fetch_array($query)) {                            
+                                                                echo '<option value="'.$valores[materia_codigo].'">'.$valores[materia_nombre].'</option>';
+                                                                
+                                                            }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Curso</label>
-                                                      <select class="form-control" name="cursoCod" required>
-                                            <option value="" disabled selected>Elige una opción</option>
-                                            <?php 
-                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
-
-                                                if ($link === false) {
-                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
-                                                }   
-                                                $sql = 'SELECT curso_codigo, curso_nombre FROM tbl_cursos';
-                                                $query = mysqli_query($link, $sql);
-            
-                                                while ($valores = mysqli_fetch_array($query)) {                            
-                                                    echo '<option value="'.$valores[curso_codigo].'">'.$valores[curso_nombre].'</option>';
-                                                    
-                                                }
-                                            ?>
-                                        </select>
+                                                    <label>Hora inicio</label>
+                                                    <input type="text" class="form-control" placeholder="00:00" name="inicio" id="inicio" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Hora fin</label>
+                                                    <input type="text" class="form-control" placeholder="00:00" name="fin" id="fin" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Día</label>
+                                                    <select class="form-control" name="dia" required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <option value="Lunes">Lunes</option>
+                                                        <option value="Martes">Martes</option>
+                                                        <option value="Miercoles">Miércoles</option>
+                                                        <option value="Jueves">Jueves</option>
+                                                        <option value="Viernes">Viernes</option>
+                                                        <option value="Sabado">Sábado</option>                                                        
+                                                    </select>
                                                 </div>
                                             </div>
                                         </div>
+                                        
                                                                                 
                                         <div class="row">
                                             <div class="col-md-12">

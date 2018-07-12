@@ -1,3 +1,6 @@
+<?php 
+include ('../config/config.php');
+ ?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,6 +32,8 @@
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+
 
 </head>
 <body>
@@ -69,10 +74,11 @@
     </div>
 
     <div class="main-panel">
+        <div id="notify" >
+        </div>
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -110,87 +116,70 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="card">
-                            <a href="view-AsignacionHorario.php">
                             <div class="header">
-                                <h4 class="title">Asignación de horarios</h4>
-                                <p class="category">
-                                    <img src="../assets\img\approve.png" align="right">
-                                </p>
+                                <h4 class="title">Configuracion periodos</h4>                                
                             </div>
                             <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
-                            </div>
-                        </a>
-                        </div>
-                    </div>
+                                <form>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Periodo</label>
+                                                    <select class="form-control" name="periodo" id="periodo" required>
+                                            <option value="" disabled selected>Elige una opción</option>
+                                            <?php 
+                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
 
-                    <div class="col-md-4">
-                        <div class="card">
-                             <a href="view-AsignacionDirectorGrupo.php">
-                            <div class="header">
-                                <h4 class="title">Dirección de grupo</h4>
-                                <p class="category"><img src="../assets\img\team.png" align="right"></p>
-                            </div>
-                            <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
-                            </div>
-                        </a>
-                        </div>
-                    </div>
+                                                if ($link === false) {
+                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                }   
+                                                $sql = 'SELECT periodo_nombre, periodo_id FROM tbl_periodo';
+                                                $query = mysqli_query($link, $sql);
+            
+                                                while ($valores = mysqli_fetch_array($query)) {                            
+                                                    echo '<option value="'.$valores[periodo_id].'">'.$valores[periodo_nombre].'</option>';
+                                                    
+                                                }
+                                            ?>
+                                        </select>
 
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Reportes</h4>
-                                <p class="category"><img src="../assets\img\result.png" align="right"></p>
-                            </div>
-                            <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
+                                                </div>
+                                            </div>
+                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Fecha inicio</label>
+                                                     <input type="text" class="form-control" placeholder="AAAA/MM/dd" name="inicio" id="inicio" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Fecha fin</label>
+                                                     <input type="text" class="form-control" placeholder="AAAA/MM/dd" name="fin" id="fin" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                                                                
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <a type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Alumno" onclick="listar(1);">Registrar</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </form>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-4">
-                        <div class="card">
-                            <a href="view-configuracionPeriodo.php">
-                            <div class="header">
-                                <h4 class="title">Configuracion periodos</h4>
-                                <p class="category"><img src="../assets\img\period.png" align="right"></p>
-                            </div>
-                            <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
-                            </div>
-                            <a href="view-AsignacionDirectorGrupo.php">
-                        </div>
-                    </div>
-
-                   
                 </div>
             </div>
         </div>
-
-
         <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
@@ -203,8 +192,17 @@
                 </p>
             </div>
         </footer>
+        </div>
+        <!-- Sart Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-sm">
+                            <div  id="notifyModal">
 
-    </div>
+                           </div>
+                  </div>
+                </div>
+<!--  End Modal -->
+    
 </div>
 
 
@@ -226,17 +224,35 @@
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="../assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
+<script src="assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="../assets/js/demo.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
+<script type="text/javascript">
+    $('[data-toggle="tooltip"]').tooltip();
 
-            demo.initChartist();
+    $(document).ready(function () {
+        
 
-            
+     });
+</script>
+<script type="text/javascript">  
+    var listar = function(accion){
+        var periodo = $("#periodo").val();
+        var inicio = $("#inicio").val();
+        var fin = $("#fin").val();
 
-        });
-    </script>
+       
+       $.ajax({   
+       type: "POST",
+       url:"../control/registro_periodo.php",
+       data:{"insertar":accion,"periodo":periodo,"inicio":inicio,"fin":fin},
+       success: function(notifyModal){       
+         $('#notifyModal').html(notifyModal); 
+         $('#myModal').modal('show');        
+       }
+       
+     });}
+</script>
 
 </html>

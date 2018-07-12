@@ -114,9 +114,46 @@ include ('../config/config.php');
         <div class="content">
             <div class="container-fluid">
               <div class="row">
-
                     <?php 
-                        for ($i = 1; $i <= 4; $i++) {
+                    $NoCursos;
+                    include ('../config/config.php');
+
+                    //numero cursos activos para el docente
+                    $sql = "SELECT curso_nombre, tbl_cursos.curso_codigo FROM `tbl_asignacion` INNER JOIN tbl_cursos on tbl_asignacion.curso_codigo = tbl_cursos.curso_codigo where tbl_asignacion.docente_documento = 102";
+                    $resultado = $link->query($sql);
+                    while($rows = $resultado->fetch_assoc()){
+                        echo '<div class="col-md-4">
+                        <div class="card">
+                            
+                                <div class="header">
+                                    <h4 class="title">'.$rows['curso_nombre'].'</h4>
+                                    <p class="category">
+                                       <img src="../assets\img\approve.png" align="right">
+                                    </p>
+                                </div>
+                                <div class="content">
+                                  <br>
+                                  <br>
+                                  <br>
+                                <div class="footer">
+                                    <hr>                                    
+                                    <a href="../control/reportes/liquidaciondet2.php?curso='.$rows['curso_codigo'].'">
+                                        <p align="rigth">Descargar plantilla</p>
+                                    </a>
+                                    <a href="table.php?curso='.$rows['curso_nombre'].'">
+                                        <p align="left">Cargar</p>
+                                    </a>
+                                </div>
+                                </div>
+                             
+                        </div>
+                    </div>';
+}
+              
+
+
+
+                       /* for ($i = 0; $i < $NoCursos; $i++) {
                             echo '<div class="col-md-4">
                         <div class="card">
                             
@@ -143,7 +180,7 @@ include ('../config/config.php');
                              
                         </div>
                     </div>';
-                        }
+                        }*/
 
                     ?>
                 </div>

@@ -8,22 +8,31 @@ include ('../config/config.php');
 
 switch ($accion) {
 	case 1: 
-		$periodoCodigo = $_POST['pe_codigo'];
-		$periodoDesc = $_POST['pe_descripcion'];
-		$periodoFechaI = $_POST['pe_fechaInicio'];
-		$periodoFechaF = $_POST['pe_fechaFin'];
-		$materiaCodigo = $_POST['materiaCod'];
-		$docenteDocume = $_POST['docenteDocumento'];
-		$cursoCodigo = $_POST['cursoCod'];
 
+		//variables registro asignacion
+		$periodo = $_POST['periodo'];
+		$curso = $_POST['cursoCod'];
+		$docente = $_POST['docenteDocumento'];
+		$materia = $_POST['materiaCod'];
+		
+		//variables registro horario
+		$horaInicio = $_POST['inicio'];
+		$horaFin = $_POST['fin'];
+		$dia = $_POST['dia'];
 	 
-			$sql1 = "INSERT INTO tbl_periodos(periodo_codigo,periodo_descripcion,periodo_fechaIni,periodo_fechaFin,materia_codigo,docente_documento,curso_codigo) VALUES (' $periodoCodigo','$periodoDesc','$periodoFechaI','$periodoFechaF','$materiaCodigo','$docenteDocume','$cursoCodigo')";
+			$sql1 = "INSERT INTO tbl_asignacion(periodo_codigo,curso_codigo,docente_documento,materia_codigo) VALUES (' $periodo','$curso','$docente','$materia')";
 			echo ($sql1);
 		$query1 = mysqli_query($link, $sql1);
 				if($query1 > 0){
-			echo('Registro  Exitoso '.$periodoCodigo.' '.$periodoDesc);
+			echo('Registro  Exitoso ');
 				}
-		
+
+				$sql2 = "INSERT INTO tbl_horario(hora_inicio,hora_fin,hora_dia,curso_codigo,docente_codigo) VALUES ('$horaInicio','$horaFin','$dia','$curso','$docente')";
+				echo $sql2;
+		$query2 = mysqli_query($link, $sql2);
+				if($query2 > 0){
+			echo('Registro  Exitoso ');
+				}
 	
 	  break;
 

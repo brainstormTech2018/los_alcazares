@@ -2,7 +2,6 @@
 include ('../config/config.php');
  ?>
 <!doctype html>
-
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -33,6 +32,8 @@ include ('../config/config.php');
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+
+
 
 </head>
 <body>
@@ -73,15 +74,11 @@ include ('../config/config.php');
     </div>
 
     <div class="main-panel">
-        <a href="#" onclick="limpiar();">
         <div id="notify" >
         </div>
-        </a>
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
-                
                 <div class="navbar-header">
-                    
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -116,72 +113,70 @@ include ('../config/config.php');
                 </div>
             </div>
         </nav>
-
-
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-
                             <div class="header">
-                                <h4 class="title">Registro docente</h4>
-                                
+                                <h4 class="title">Asignación director de grupo</h4>                                
                             </div>
                             <div class="content">
-                                <form  method="POST" id="client">
+                                <form>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Nombre</label>
-                                                    <input type="text" class="form-control" placeholder="Nombres" name="do_nombre" id="do_nombre" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Apellido</label>
-                                                    <input type="text" class="form-control" placeholder="Apellidos" name="do_apellido" id="do_apellido" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Cedula</label>
-                                                    <input type="text" class="form-control" placeholder="Número de documento" name="do_documento" id="do_documento" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Dirección</label>
-                                                    <input type="text" class="form-control" placeholder="Residencia" name="do_direccion" id="do_direccion" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Teléfono</label>
-                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="do_telefono" id="do_telefono" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>E-mail</label>
-                                                    <input type="text" class="form-control" placeholder="Correo electrónico" name="do_email" id="do_email" required />
-                                                </div>
-                                            </div>
-                                        </div>
+                                                    <label>Docente</label>
+                                                    <select class="form-control" name="docenteDocumento" id="docenteDocumento" required>
+                                            <option value="" disabled selected>Elige una opción</option>
+                                            <?php 
+                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
 
-                                        <div class="header">
-                                            <h4 class="title">Credenciales para ingreso</h4>
+                                                if ($link === false) {
+                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                }   
+                                                $sql = 'SELECT concat(docente_nombre," ",docente_apellido)r, docente_documento FROM tbl_docentes';
+                                                $query = mysqli_query($link, $sql);
+            
+                                                while ($valores = mysqli_fetch_array($query)) {                            
+                                                    echo '<option value="'.$valores[docente_documento].'">'.$valores[r].'</option>';
+                                                    
+                                                }
+                                            ?>
+                                        </select>
+
+                                                </div>
+                                            </div>
+                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Curso</label>
+                                                      <select class="form-control" name="cursoCod" id="cursoCod"required>
+                                            <option value="" disabled selected>Elige una opción</option>
+                                            <?php 
+                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
+
+                                                if ($link === false) {
+                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                }   
+                                                $sql = 'SELECT curso_id, curso_nombre FROM tbl_cursos';
+                                                $query = mysqli_query($link, $sql);
+            
+                                                while ($valores = mysqli_fetch_array($query)) {                            
+                                                    echo '<option value="'.$valores[curso_id].'">'.$valores[curso_nombre].'</option>';
+                                                    
+                                                }
+                                            ?>
+                                        </select>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <br>
-                                        
+                                                                                
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Docente" onclick="listar(1);">Registrar</a>
+                                                    <a type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Alumno" onclick="listar(1);">Registrar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -189,7 +184,6 @@ include ('../config/config.php');
                                     </form>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -206,8 +200,17 @@ include ('../config/config.php');
                 </p>
             </div>
         </footer>
+        </div>
+        <!-- Sart Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-sm">
+                            <div  id="notifyModal">
 
-    </div>
+                           </div>
+                  </div>
+                </div>
+<!--  End Modal -->
+    
 </div>
 
 
@@ -229,10 +232,11 @@ include ('../config/config.php');
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="../assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
+<script src="assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="../assets/js/demo.js"></script>
 
-    <script type="text/javascript">
+<script type="text/javascript">
     $('[data-toggle="tooltip"]').tooltip();
 
     $(document).ready(function () {
@@ -245,36 +249,25 @@ include ('../config/config.php');
                 $('#mostrarPass').attr('class', 'fa fa-eye-slash');
             }
         });
-    });
+
+     });
 </script>
 <script type="text/javascript">  
     var listar = function(accion){
-        var documento = $("#do_documento").val();
-        var nombre = $("#do_nombre").val();
-        var apellido = $("#do_apellido").val();
-        var direccion = $("#do_direccion").val();
-        var telefono = $("#do_telefono").val();
-        var email = $("#do_email").val();
+        var curso = $("#cursoCod").val();
+        var docente = $("#docenteDocumento").val();
 
-
+       var sql1 = "UPDATE tbl_cursos SET docente_documento = '"+docente+"' WHERE curso_id = "+curso;
        $.ajax({   
        type: "POST",
-       url:"../control/registro_docentes.php",
-       data:{"insertar":accion,"do_documento":documento,"do_nombre":nombre, "do_apellido":apellido, "do_direccion":direccion, "do_telefono":telefono, "do_email":email},
-       success: function(notify){       
-         $('#notify').html(notify); 
-         //alert(nombre);        
+       url:"../control/asignacion_director.php",
+       data:{"insertar":accion,"curso":curso,"docente":docente},
+       success: function(notifyModal){       
+         $('#notifyModal').html(notifyModal); 
+         $('#myModal').modal('show');        
        }
        
      });}
 </script>
-
-   <script type="text/javascript">
-    var limpiar = function() {
-     $("#client")[0].reset();
-     
-}
-
-   </script>
 
 </html>
