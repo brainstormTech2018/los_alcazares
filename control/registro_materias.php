@@ -8,12 +8,11 @@ $notificacion="";
 switch ($accion) {
 	case 1:
 		
-		$codigo =$_POST['codigoMateria'];
+		$codigo =$_POST['codigo'];
 		$nombre = $_POST['materia'];
-		$curso = $_POST['cursoCod'];
-		$docente = $_POST['docenteDocumento'];
+		$docente = $_POST['docente'];
 
-		$sql = "SELECT materia_nombre FROM tbl_materias WHERE materia_codigo = '$codigoMateria'";
+		$sql = "SELECT materia_nombre FROM tbl_materias WHERE materia_codigo = '$codigo'";
 	  
 		$query = mysqli_query($link, $sql);
 		if(mysqli_num_rows($query) > 0){
@@ -25,9 +24,9 @@ switch ($accion) {
 				}
 				
 		    }
-
-		$sql1="INSERT INTO tbl_materias (`materia_codigo`, `materia_nombre`, `curso_codigo`, `docente_codigo`) VALUES ('$codigo', '$nombre', '$curso', '$docente')";
-        echo($sql1);
+		}else{
+		$sql1="INSERT INTO tbl_materias (`materia_codigo`, `materia_nombre`, `docente_codigo`) VALUES ('$codigo', '$nombre', '$docente')";
+        
 				$query1 = mysqli_query($link, $sql1);
 								if($query1 > 0){
 							$notificacion.="<div class='alert alert-success'>
@@ -48,7 +47,8 @@ switch ($accion) {
 		echo $notificacion;
 		break;
 	
-	
+	}
 }
+
 
 ?>

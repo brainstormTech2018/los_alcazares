@@ -39,7 +39,7 @@ include ('../config/config.php');
 <body>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="blue" data-image="../assets/img/sidebar-5.jpg">
 
     <!--
 
@@ -74,16 +74,15 @@ include ('../config/config.php');
     </div>
 
     <div class="main-panel">
-        <div id="notify" >
-        </div>
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="../index.php" class="dropdown-toggle">
+                            <a href="view-Acciones.php" class="dropdown-toggle">
                               
                                 <p>Menú Acciones</p>
                             </a>
@@ -119,81 +118,53 @@ include ('../config/config.php');
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Registro de Materias</h4>                                
+                                <h4 class="title">Registro materias</h4>                                
                             </div>
                             <div class="content">
-                                <form>
+                                <form>                                                                              
                                         <div class="row">
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label>Codigo</label>
-                                                   <input type="text" class="form-control" placeholder="Codigo Materia" name="codigoMateria" id="codigoMateria" required />
+                                                    <label>Docente</label>
+                                                    <select class="form-control" name="docenteDocumento" id="docenteDocumento" required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <?php 
+                                                            $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
 
+                                                            if ($link === false) {
+                                                                die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                            }   
+                                                            $sql = 'SELECT concat(docente_nombre," ",docente_apellido)r, docente_documento FROM tbl_docentes';
+                                                            $query = mysqli_query($link, $sql);
+                        
+                                                            while ($valores = mysqli_fetch_array($query)) {                            
+                                                                echo '<option value="'.$valores[docente_documento].'">'.$valores[r].'</option>';
+                                                                
+                                                            }
+                                                        ?>
+                                                    </select>
                                                 </div>
                                             </div>
-                                         
-                                     
-                                            <div class="col-md-6">
+                                            <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Materia</label>
-                                                     <input type="text" class="form-control" placeholder="Nombre" name="materia" id="materia" required />
+                                                    <input type="text" class="form-control" placeholder="Nombre de la asignatura" name="materia" id="materia" required />
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label>Codigo</label>
+                                                    <input type="text" class="form-control" placeholder="00:00" name="codigo" id="codigo" required />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Codigo Curso</label>
-                                                   
-                                            
-                                                         <select class="form-control" name="cursoCod" id="cursoCod"required>
-                                            <option value="" disabled selected>Elige una opción</option>
-                                            <?php 
-                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
-
-                                                if ($link === false) {
-                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
-                                                }   
-                                                $sql = 'SELECT curso_id, curso_nombre FROM tbl_cursos';
-                                                $query = mysqli_query($link, $sql);
-            
-                                                while ($valores = mysqli_fetch_array($query)) {                            
-                                                    echo '<option value="'.$valores[curso_id].'">'.$valores[curso_nombre].'</option>';
-                                                    
-                                                }
-                                            ?>
-                                                     </select>
-                                                </div>
-                                            </div>
-                                       
-                                         
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Codigo Docente</label>
-                                                      <select class="form-control" name="docenteDocumento" id="docenteDocumento" required>
-                                            <option value="" disabled selected>Elige una opción</option>
-                                            <?php 
-                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
-
-                                                if ($link === false) {
-                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
-                                                }   
-                                                $sql = 'SELECT concat(docente_nombre," ",docente_apellido)r, docente_documento FROM tbl_docentes';
-                                                $query = mysqli_query($link, $sql);
-            
-                                                while ($valores = mysqli_fetch_array($query)) {                            
-                                                    echo '<option value="'.$valores[docente_documento].'">'.$valores[r].'</option>';
-                                                    
-                                                }
-                                            ?>
-                                        </select>
-                                                </div>
-                                            </div>
-                                        </div>                                        
+                                                                              
+                                                                                
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <a type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Materia" onclick="listar(1);">Registrar</a>
+                                                     <a type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Alumno" onclick="listar(1);">Registrar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -217,8 +188,8 @@ include ('../config/config.php');
                 </p>
             </div>
         </footer>
-        </div>
-        <!-- Sart Modal -->
+    </div>
+    <!-- Sart Modal -->
                 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                      <div class="modal-dialog modal-sm">
                             <div  id="notifyModal">
@@ -227,7 +198,6 @@ include ('../config/config.php');
                   </div>
                 </div>
 <!--  End Modal -->
-    
 </div>
 
 
@@ -253,28 +223,29 @@ include ('../config/config.php');
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="../assets/js/demo.js"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
     $('[data-toggle="tooltip"]').tooltip();
 
     $(document).ready(function () {
         
-
      });
 </script>
 <script type="text/javascript">  
     var listar = function(accion){
-        var codigoMa = $("#codigoMateria").val();
-        var nombre = $("#materia").val();
-        var curso = $("#cursoCod").val();
+        var materia = $("#materia").val();
+        var codigo = $("#codigo").val();
         var docente = $("#docenteDocumento").val();
 
        
        $.ajax({   
        type: "POST",
        url:"../control/registro_materias.php",
-     data:{"insertar":accion,"codigoMa":codigoMateria,"nombre":materia,"curso":cursoCod,"docente":docenteDocumento},success: function(notifyModal){       
+       data:{"insertar":accion, "docente":docente, "materia":materia, "codigo":codigo},
+       success: function(notifyModal){       
          $('#notifyModal').html(notifyModal); 
-         $('#myModal').modal('show');        
+         $('#myModal').modal('show'); 
+
+
        }
        
      });}
