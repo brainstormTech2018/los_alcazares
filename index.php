@@ -185,6 +185,7 @@
                     </div>
 
                      <div class="col-md-4">
+                        <a href="views/view-registrarMateria.php">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Materias</h4>
@@ -199,6 +200,7 @@
                             </div>
                             </div>
                         </div>
+                    </a>
                     </div>
 
                     <div class="col-md-4">
