@@ -77,7 +77,7 @@
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="../index.php" class="dropdown-toggle" >
                               
                                 <p>Menú</p>
                             </a>

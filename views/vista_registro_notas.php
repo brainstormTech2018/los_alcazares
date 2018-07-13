@@ -80,7 +80,7 @@ include ('../config/config.php');
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="user.php" class="dropdown-toggle">
                                 <p>Cursos asignados</p>
                             </a>
                         </li>

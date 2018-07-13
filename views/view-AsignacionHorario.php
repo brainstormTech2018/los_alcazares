@@ -63,7 +63,7 @@ include ('../config/config.php');
                     </a>
                 </li>
                 <li class="active">
-                    <a href="user.php">
+                    <a href="../index.php">
                         <i class="pe-7s-user"></i>
                         <p>Docente</p>
                     </a>
@@ -82,9 +82,9 @@ include ('../config/config.php');
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="view-Acciones.php" class="dropdown-toggle">
                               
-                                <p>Menú</p>
+                                <p>Menú Acciones</p>
                             </a>
                         </li>
                         <li class="dropdown">
