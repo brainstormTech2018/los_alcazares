@@ -121,7 +121,7 @@ include ('../config/config.php');
                                 <h4 class="title">Asignación horario</h4>                                
                             </div>
                             <div class="content">
-                                <form action="../control/registro_horario.php" method="POST">
+                                <form>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -172,7 +172,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Docente</label>
-                                                    <select class="form-control" name="docenteDocumento" required>
+                                                    <select class="form-control" name="docenteDocumento" id="docenteDocumento" required>
                                                         <option value="" disabled selected>Elige una opción</option>
                                                         <?php 
                                                             $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
@@ -194,7 +194,7 @@ include ('../config/config.php');
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Materia</label>
-                                                     <select class="form-control" name="materiaCod" required>
+                                                     <select class="form-control" name="materiaCod" id="materiaCod" required>
                                                         <option value="" disabled selected>Elige una opción</option>
                                                         <?php 
                                                             $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
@@ -230,7 +230,7 @@ include ('../config/config.php');
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Día</label>
-                                                    <select class="form-control" name="dia" required>
+                                                    <select class="form-control" name="dia" id="dia" required>
                                                         <option value="" disabled selected>Elige una opción</option>
                                                         <option value="Lunes">Lunes</option>
                                                         <option value="Martes">Martes</option>
@@ -247,7 +247,7 @@ include ('../config/config.php');
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="form-group">
-                                                    <button type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Alumno">Registrar</button>
+                                                     <a type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Alumno" onclick="listar(1);">Registrar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -272,6 +272,15 @@ include ('../config/config.php');
             </div>
         </footer>
     </div>
+    <!-- Sart Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-sm">
+                            <div  id="notifyModal">
+
+                           </div>
+                  </div>
+                </div>
+<!--  End Modal -->
 </div>
 
 
@@ -311,6 +320,29 @@ include ('../config/config.php');
             }
         });
      });
+</script>
+<script type="text/javascript">  
+    var listar = function(accion){
+        var periodo = $("#periodo").val();
+        var curso = $("#cursoCod").val();
+        var docente = $("#docenteDocumento").val();
+
+        var materia = $("#materiaCod").val();
+        var inicio = $("#inicio").val();
+        var fin = $("#fin").val();
+        var dia = $("#dia").val();
+
+       
+       $.ajax({   
+       type: "POST",
+       url:"../control/registro_horario.php",
+       data:{"insertar":accion,"periodo":periodo,"inicio":inicio,"fin":fin, "dia":dia, "cursoCod":curso, "docenteDocumento":docente, "materiaCod":materia},
+       success: function(notifyModal){       
+         $('#notifyModal').html(notifyModal); 
+         $('#myModal').modal('show');        
+       }
+       
+     });}
 </script>
 
 </html>
