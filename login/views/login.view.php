@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <link rel="icon" type="image/png" href="../assets/img/favicon.png" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <title>Nacolor - Ingresar</title>
+    <title>LOS ALCAZARES - Ingresar</title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -23,7 +23,7 @@
         <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="<?php echo RUTA.'./'; ?>" rel="tooltip" title="Sistema de reporte" data-placement="bottom" >
-                    Nacolor
+                    LOS ALCAZARES
                 </a>
                 <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-bar bar1"></span>
@@ -52,7 +52,7 @@
                     <form class="form" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>">
                         <div class="header header-primary text-center">
                             <div class="logo-container">
-                                <img src="../assets/img/now-logo.png" alt="Logo NACOLOR">
+                                <img src="../assets/img/escudo.png" alt="Logo LOS ALCAZARES">
                             </div>
                         </div>
                         <div class="content">
@@ -82,7 +82,7 @@
                     &copy;
                     <script>
                         document.write(new Date().getFullYear())
-                    </script>, NACOLOR. Todos los Derechos Reservados | Diseñada por
+                    </script>, LOS ALCAZARES. Todos los Derechos Reservados | Diseñada por
                     <i>Multitechnis S.A.S.</i>
                 </div>
             </div>
