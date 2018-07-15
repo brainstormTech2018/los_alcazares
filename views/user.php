@@ -1,4 +1,7 @@
 <!doctype html>
+<?php 
+session_start();
+ ?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -52,7 +55,16 @@
 
             <ul class="nav">
                 <li>
-                    <a href="../index.php">
+                    <?php 
+                        if(isset($_SESSION['userType'])){
+                            if($_SESSION['userType'] == 'docente'){
+                                echo '<a href="#">';
+                            }else{
+                                echo '<a href="index.php">';
+                            }
+                        }
+                     ?>
+                    
                         <i class="pe-7s-graph"></i>
                         <p>Administrativo</p>
                     </a>

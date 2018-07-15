@@ -1,5 +1,6 @@
 <?php 
 include ('../config/config.php');
+session_start();
 ?>
 <!doctype html>
 <html lang="en">
@@ -119,7 +120,7 @@ include ('../config/config.php');
                     include ('../config/config.php');
 
                     //numero cursos activos para el docente
-                    $sql = "SELECT curso_nombre, tbl_cursos.curso_codigo FROM `tbl_asignacion` INNER JOIN tbl_cursos on tbl_asignacion.curso_codigo = tbl_cursos.curso_codigo where tbl_asignacion.docente_documento = 78888'";
+                    $sql = "SELECT curso_nombre, tbl_cursos.curso_codigo FROM `tbl_asignacion` INNER JOIN tbl_cursos on tbl_asignacion.curso_codigo = tbl_cursos.curso_codigo where tbl_asignacion.docente_documento = '".$_SESSION['docente']."'";
                     $resultado = $link->query($sql);
                     while($rows = $resultado->fetch_assoc()){
                         echo '<div class="col-md-4">

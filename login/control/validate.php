@@ -8,11 +8,13 @@
     if (isset($_SESSION['usuario'])) {
         // Validar los datos por privilegio
         $conexion = conexion($db_config);
-        $usuario = iniciarSession('usuarios', $conexion);
-
-        if ($usuario['tipo_usuario'] == 'administrador') {
-            header('Location: '.RUTA.'./login/control/admin.php');
-        } elseif ($usuario['tipo_usuario'] == 'usuario') {
+        $usuario = iniciarSession('usuario', $conexion);
+        $_SESSION['userType'] = $usuario['tipo_usuario'];
+        if ($usuario['tipo_usuario'] == 'docente') {
+            header('Location: '.RUTA.'./views/user.php');
+            $_SESSION['docente'] = $usuario['id_docente'];
+            echo $_SESSION['docente'];
+       } elseif ($usuario['tipo_usuario'] == 'usuario') {
             header('Location: '.RUTA.'./login/control/usuario.php');
         } else {
             header('Location: '.RUTA.'./login/control/login.php');

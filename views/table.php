@@ -230,9 +230,9 @@ for ($i=4;$i<=$filas;$i++){
 
 
 foreach($_DATOS_EXCEL as $campo => $valor){
-                        $sql = "INSERT INTO tbl_notas  (estudiante_codigo,nota_1,nota_2,nota_3,nota_definitiva,curso_codigo,activo,nota_fecha)  VALUES ('";
+                        $sql = "INSERT INTO tbl_notas  (estudiante_codigo,nota_1,nota_2,nota_3,nota_definitiva,curso_codigo,activo,nota_fecha,docente_codigo)  VALUES ('";
                         foreach ($valor as $campo2 => $valor2){
-                            $campo2 == "activo" ? $sql.= $valor2."',now());" : $sql.= $valor2."','";
+                            $campo2 == "activo" ? $sql.= $valor2."',now(),'".$_SESSION['docente'].",);" : $sql.= $valor2."','";
                         }
 
                         $result = mysql_query($sql);
