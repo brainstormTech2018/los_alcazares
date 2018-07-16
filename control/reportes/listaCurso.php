@@ -31,8 +31,8 @@ $objPHPExcel->getProperties()->setCreator("Los alcazares") // Nombre del autor
 
 // Se combinan las celdas A1 hasta D1, para colocar ahí el titulo del reporte
 $objPHPExcel->setActiveSheetIndex(0)
-    ->mergeCells('A1:F1')
-    ->mergeCells('A2:F2');
+    ->mergeCells('A1:G1')
+    ->mergeCells('A2:G2');
  
 // Se agregan los titulos del reporte
 $objPHPExcel->setActiveSheetIndex(0)
@@ -51,13 +51,13 @@ $objPHPExcel->setActiveSheetIndex(0)
  
  $i = 4; //Numero de fila donde se va a comenzar a rellenar
  while ($fila = $resultado->fetch_array()) {
-     $objPHPExcel->setActiveSheetIndex(0)
+     $objPHPExcel->getActiveSheet()
          ->setCellValue('A'.$i, $fila['q'])
          ->setCellValue('B'.$i, $fila['estudiante_documento'])
          ->setCellValue('C'.$i, '0')
          ->setCellValue('D'.$i, '0')
          ->setCellValue('E'.$i, '0')
-         ->setCellValue('F'.$i, '0')
+         ->setCellValue('F'.$i, '=(sum(C'.$i.':E'.$i.'))/3')
          ->setCellValue('G'.$i, $curso);
      $i++;
  }
@@ -134,6 +134,16 @@ $objPHPExcel->getActiveSheet()->getStyle('A1:G1')->applyFromArray($estiloTituloR
 $objPHPExcel->getActiveSheet()->getStyle('A2:G2')->applyFromArray($estiloTituloReporte);
 $objPHPExcel->getActiveSheet()->getStyle('A3:G3')->applyFromArray($estiloTituloColumnas);
 $objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A4:G".($i-1));
+
+for ($j=0; $j < $i ; $j++) { 
+   $objPHPExcel->getActiveSheet()->getStyle('F'.$j)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+   $objPHPExcel->getActiveSheet()->getStyle('C'.$j.':F'.$j)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
+   
+   $objPHPExcel->getActiveSheet()->getStyle('A'.$j.':B'.$j)->getProtection()->setLocked(
+         PHPExcel_Style_Protection::PROTECTION_PROTECTED
+    );
+   
+}
 
 for($i = 'A'; $i <= 'G'; $i++){
     $objPHPExcel->setActiveSheetIndex(0)->getColumnDimension($i)->setAutoSize(TRUE);

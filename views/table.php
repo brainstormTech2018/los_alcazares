@@ -1,8 +1,20 @@
 <!doctype html>
 <html lang="en">
+<?php 
+session_start();
+if (isset($_SESSION["usuario"] )) {
+  echo 'bienvenido'.$_SESSION['usuario'];
+}else {
+        echo '<SCRIPT LANGUAGE="javascript">
+            location.href = "../index.html";
+            </script>';
+}
+$curso = $_GET['codigo'];
+$docente = $_SESSION['docente'];
+ ?>
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+	<link rel="icon" type="image/png" href="../assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Los Alcazares</title>
@@ -39,7 +51,7 @@
 
     	<div class="sidebar-wrapper">
             <div class="logo">
-                <a href="http://www.creative-tim.com" class="simple-text">
+                <a class="simple-text">
                     Los Alcazares
                 </a>
             </div>
@@ -47,13 +59,21 @@
             
             <ul class="nav">
                 <li>
-                    <a href="../index.php">
+                    <?php 
+                        if(isset($_SESSION['userType'])){
+                            if($_SESSION['userType'] == 'docente'){
+                                echo '<a href="#">';
+                            }else{
+                                echo '<a href="index.php">';
+                            }
+                        }
+                     ?>
                         <i class="pe-7s-graph"></i>
                         <p>Administrativo</p>
                     </a>
                 </li>
                 <li class="active">
-                    <a href="user.html">
+                    <a href="user.php">
                         <i class="pe-7s-user"></i>
                         <p>Docente</p>
                     </a>
@@ -90,7 +110,7 @@
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                          <a class="text-info"  onclick="listar();">Ver ultimo registro</a>
+                          <a class="text-info" onclick="listar();">Ver ultimo registro</a>
                         </li>
                         <li>
                              <a class="text-info" data-toggle="modal" data-target="#myModal">
@@ -98,9 +118,9 @@
                              </a>
                         </li>
                         <li>
-                            <a href="#">
-                                <p>Log out</p>
-                            </a>
+                            <a href="../login/control/close.php" class="dropdown-item text-danger">
+                                        <i class="nc-icon nc-button-power"></i> Log out
+                                    </a>
                         </li>
 						<li class="separator hidden-lg hidden-md"></li>
                     </ul>
@@ -114,7 +134,7 @@
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Relacion de alumnos y notas 1 periodo</h4>
+                                <h4 class="title">Relacion de alumnos y notas</h4>
                                 <p class="category">Grado <?php echo $_GET['curso'] ?></p>
                             </div>
                             <div class="content table-responsive table-full-width" id='mytable'>
@@ -232,7 +252,7 @@ for ($i=4;$i<=$filas;$i++){
 foreach($_DATOS_EXCEL as $campo => $valor){
                         $sql = "INSERT INTO tbl_notas  (estudiante_codigo,nota_1,nota_2,nota_3,nota_definitiva,curso_codigo,activo,nota_fecha,docente_codigo)  VALUES ('";
                         foreach ($valor as $campo2 => $valor2){
-                            $campo2 == "activo" ? $sql.= $valor2."',now(),'".$_SESSION['docente'].",);" : $sql.= $valor2."','";
+                            $campo2 == "activo" ? $sql.= $valor2."',now(),' ".$_SESSION['docente']."');" : $sql.= $valor2."','";
                         }
 
                         $result = mysql_query($sql);
@@ -299,9 +319,11 @@ echo "</div>
         });
         </script>
 <script>
+        
         var listar = function(accion){
-           
-             $.get("../control/consulta.php")
+            var docente = <?php echo $docente ?>;
+        var curso = <?php echo $curso ?>;
+             $.get("../control/consulta.php?curso="+curso+"&docente="+docente)
             .done(function(mytable){
             $("#mytable").html(mytable);
             });

@@ -1,8 +1,18 @@
 <!doctype html>
+<?php 
+session_start();
+if (isset($_SESSION["usuario"] )) {
+  echo 'bienvenido'.$_SESSION['usuario'];
+}else {
+        echo '<SCRIPT LANGUAGE="javascript">
+            location.href = "../index.html";
+            </script>';
+}
+ ?>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
-	<link rel="icon" type="image/png" href="assets/img/favicon.ico">
+	<link rel="icon" type="image/png" href="../assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
 	<title>Los Alcazares</title>
@@ -12,29 +22,29 @@
 
 
     <!-- Bootstrap core CSS     -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Animation library for notifications   -->
-    <link href="assets/css/animate.min.css" rel="stylesheet"/>
+    <link href="../assets/css/animate.min.css" rel="stylesheet"/>
 
     <!--  Light Bootstrap Table core CSS    -->
-    <link href="assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
+    <link href="../assets/css/light-bootstrap-dashboard.css?v=1.4.0" rel="stylesheet"/>
 
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
-    <link href="/assets/css/demo.css" rel="stylesheet" />
+    <link href="/../assets/css/demo.css" rel="stylesheet" />
 
 
     <!--     Fonts and icons     -->
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
-    <link href="assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
+    <link href="../assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 
 </head>
 <body>
 
 <div class="wrapper">
-    <div class="sidebar" data-color="purple" data-image="assets/img/sidebar-5.jpg">
+    <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-5.jpg">
 
     <!--
 
@@ -57,9 +67,18 @@
                         <p>Administrativo</p>
                     </a>
                 </li>
-                <li>
-                    <a href="views/user.php">
-                        <i class="pe-7s-user"></i>
+               <li>
+                    <?php 
+                        if(isset($_SESSION['userType'])){
+                            if($_SESSION['userType'] == 'administrativo'){
+                                echo '<a href="#">';
+                            }else{
+                                echo '<a href="index.php">';
+                            }
+                        }
+                     ?>
+                    
+                        <i class="pe-7s-graph"></i>
                         <p>Docente</p>
                     </a>
                 </li>                   
@@ -96,9 +115,9 @@
                               
                         </li>
                         <li>
-                            <a href="#">
-                                <p>Log out</p>
-                            </a>
+                            <a href="../login/control/close.php" class="dropdown-item text-danger">
+                                        <i class="nc-icon nc-button-power"></i> Log out
+                                    </a>
                         </li>
                         <li class="separator hidden-lg hidden-md"></li>
                     </ul>
@@ -111,11 +130,11 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4">
-                        <a href="views/view-registrarDocente.php">
+                        <a href="view-registrarDocente.php">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Registro docentes</h4>
-                                <p class="category"><img src="assets\img\professor.png" align="right"></p>
+                                <p class="category"><img src="../assets\img\professor.png" align="right"></p>
                             </div>
                             <div class="content">
                               <br>
@@ -130,11 +149,11 @@
                     </div>
 
                     <div class="col-md-4">
-                        <a href="views/view-registrarAlumno.php">
+                        <a href="view-registrarAlumno.php">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Registro alumnos</h4>
-                                <p class="category"><img src="assets\img\learning.png" align="right"></p>
+                                <p class="category"><img src="../assets\img\learning.png" align="right"></p>
                             </div>
                             <div class="content">
                               <br>
@@ -152,7 +171,7 @@
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Notas</h4>
-                                <p class="category"><img src="assets\img\approve.png" align="right"></p>
+                                <p class="category"><img src="../assets\img\approve.png" align="right"></p>
                             </div>
                             <div class="content">
                               <br>
@@ -166,11 +185,11 @@
                     </div>
 
                       <div class="col-md-4">
-                        <a href="views/cursos.php">
+                        <a href="cursos.php">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Cursos</h4>
-                                <p class="category"><img src="assets\img\team.png" align="right"></p>
+                                <p class="category"><img src="../assets\img\team.png" align="right"></p>
                             </div>
                             <div class="content">
                               <br>
@@ -185,11 +204,11 @@
                     </div>
 
                      <div class="col-md-4">
-                        <a href="views/view-registrarMateria.php">
+                        <a href="view-registrarMateria.php">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Materias</h4>
-                                <p class="category"><img src="assets\img\qa.png" align="right"></p>
+                                <p class="category"><img src="../assets\img\qa.png" align="right"></p>
                             </div>
                             <div class="content">
                               <br>
@@ -204,11 +223,11 @@
                     </div>
 
                     <div class="col-md-4">
-                        <a href="views/view-Acciones.php">
+                        <a href="view-Acciones.php">
                         <div class="card">
                             <div class="header">
                                 <h4 class="title">Acciones</h4>
-                                <p class="category"><img src="assets\img\settings.png" align="right"></p>
+                                <p class="category"><img src="../assets\img\settings.png" align="right"></p>
                             </div>
                             <div class="content">
                               <br>
@@ -248,23 +267,23 @@
 </body>
 
     <!--   Core JS Files   -->
-    <script src="assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
-	<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="../assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
+	<script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
 
 	<!--  Charts Plugin -->
-	<script src="assets/js/chartist.min.js"></script>
+	<script src="../assets/js/chartist.min.js"></script>
 
     <!--  Notifications Plugin    -->
-    <script src="assets/js/bootstrap-notify.js"></script>
+    <script src="../assets/js/bootstrap-notify.js"></script>
 
     <!--  Google Maps Plugin    -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
-	<script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
+	<script src="../assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
 	<!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
-	<script src="assets/js/demo.js"></script>
+	<script src="../assets/js/demo.js"></script>
 
 	<script type="text/javascript">
     	$(document).ready(function(){

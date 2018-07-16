@@ -1,11 +1,20 @@
 <!doctype html>
-<?php 
+<?php
+
 session_start();
- ?>
+if (isset($_SESSION["usuario"] )) {
+  
+}else {
+        echo '<SCRIPT LANGUAGE="javascript">
+            location.href = "../index.html";
+            </script>';
+}
+
+?>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Los Alcazares</title>
@@ -64,7 +73,6 @@ session_start();
                             }
                         }
                      ?>
-                    
                         <i class="pe-7s-graph"></i>
                         <p>Administrativo</p>
                     </a>
@@ -110,9 +118,9 @@ session_start();
                               
                         </li>
                         <li>
-                            <a href="#">
-                                <p>Log out</p>
-                            </a>
+                            <a href="../login/control/close.php" class="dropdown-item text-danger">
+                                        <i class="nc-icon nc-button-power"></i> Log out
+                                    </a>
                         </li>
                         <li class="separator hidden-lg hidden-md"></li>
                     </ul>
@@ -177,27 +185,6 @@ session_start();
                             </div>
                         </div>
                     </div>
-
-                     
-
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="header">
-                                <h4 class="title">Reportes</h4>
-                                <p class="category"><img src="../assets\img\result.png" align="right"></p>
-                            </div>
-                            <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                   
                 </div>
             </div>
         </div>

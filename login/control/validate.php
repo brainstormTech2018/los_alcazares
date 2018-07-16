@@ -10,12 +10,14 @@
         $conexion = conexion($db_config);
         $usuario = iniciarSession('usuario', $conexion);
         $_SESSION['userType'] = $usuario['tipo_usuario'];
+
         if ($usuario['tipo_usuario'] == 'docente') {
             header('Location: '.RUTA.'./views/user.php');
             $_SESSION['docente'] = $usuario['id_docente'];
             echo $_SESSION['docente'];
-       } elseif ($usuario['tipo_usuario'] == 'usuario') {
-            header('Location: '.RUTA.'./login/control/usuario.php');
+
+       } elseif ($usuario['tipo_usuario'] == 'administrativo') {
+            header('Location: '.RUTA.'./views/index.php');
         } else {
             header('Location: '.RUTA.'./login/control/login.php');
         }

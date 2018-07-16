@@ -1,8 +1,9 @@
 <?php 
 include '../config/config.php';
-
-  $sql = "SELECT nota_1,nota_2,nota_3,nota_definitiva,concat(estudiante_nombre,' ',estudiante_apellido)q FROM `tbl_notas` INNER JOIN tbl_estudiantes on tbl_notas.estudiante_codigo = tbl_estudiantes.estudiante_documento WHERE nota_fecha = curdate()";
-
+$docente = $_GET['docente'];
+$curso = $_GET['curso'];
+  $sql = "SELECT nota_1,nota_2,nota_3,nota_definitiva,concat(estudiante_nombre,' ',estudiante_apellido)q FROM `tbl_notas` INNER JOIN tbl_estudiantes on tbl_notas.estudiante_codigo = tbl_estudiantes.estudiante_documento where tbl_notas.docente_codigo = ' $docente' AND tbl_notas.curso_codigo = '$curso'";
+ 
  	$resultado = $link->query($sql);
 $html = "<table class='table table-hover table-striped'>
                                     <thead>

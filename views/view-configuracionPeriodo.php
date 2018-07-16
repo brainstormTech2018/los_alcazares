@@ -1,5 +1,13 @@
 <?php 
 include ('../config/config.php');
+session_start();
+if (isset($_SESSION["usuario"] )) {
+  echo 'bienvenido'.$_SESSION['usuario'];
+}else {
+        echo '<SCRIPT LANGUAGE="javascript">
+            location.href = "../index.html";
+            </script>';
+}
  ?>
 <!doctype html>
 <html lang="en">
@@ -56,19 +64,27 @@ include ('../config/config.php');
             </div>
 
             <ul class="nav">
-                <li>
-                    <a href="../index.php">
-                        <i class="pe-7s-graph"></i>
+                <li class="active">
+                    <a href="index.php">
+                        <i class="pe-7s-culture"></i>
                         <p>Administrativo</p>
                     </a>
                 </li>
-                <li class="active">
-                    <a href="user.php">
-                        <i class="pe-7s-user"></i>
+               <li>
+                    <?php 
+                        if(isset($_SESSION['userType'])){
+                            if($_SESSION['userType'] == 'administrativo'){
+                                echo '<a href="#">';
+                            }else{
+                                echo '<a href="index.php">';
+                            }
+                        }
+                     ?>
+                    
+                        <i class="pe-7s-graph"></i>
                         <p>Docente</p>
                     </a>
-                </li>
-                   
+                </li>                   
             </ul>
         </div>
     </div>
@@ -104,9 +120,9 @@ include ('../config/config.php');
                               
                         </li>
                         <li>
-                            <a href="#">
-                                <p>Log out</p>
-                            </a>
+                            <a href="../login/control/close.php" class="dropdown-item text-danger">
+                                        <i class="nc-icon nc-button-power"></i> Log out
+                                    </a>
                         </li>
                         <li class="separator hidden-lg hidden-md"></li>
                     </ul>
