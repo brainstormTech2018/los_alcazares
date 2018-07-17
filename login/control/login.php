@@ -12,7 +12,7 @@
 	//		$password = hash('sha512', $password);
 
 		$conexion = conexion($db_config);
-		$statement = $conexion->prepare('SELECT * FROM usuario WHERE usuario = :usuario AND contraseña = :password');
+		$statement = $conexion->prepare('SELECT * FROM usuario WHERE usuario = :usuario AND contrasena = :password');
 		$statement->execute([
 	    	':usuario' => $usuario,
 	    	':password' => $password

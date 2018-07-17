@@ -3,7 +3,7 @@
 <?php 
 session_start();
 if (isset($_SESSION["usuario"] )) {
-  echo 'bienvenido'.$_SESSION['usuario'];
+ 
 }else {
         echo '<SCRIPT LANGUAGE="javascript">
             location.href = "../index.html";

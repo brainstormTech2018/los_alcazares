@@ -1,20 +1,25 @@
-<!doctype html>
-<?php
 
+<?php
+ 
+	include ('../config/config.php');
 session_start();
 if (isset($_SESSION["usuario"] )) {
   
 }else {
         echo '<SCRIPT LANGUAGE="javascript">
             location.href = "../index.html";
-            </script>';
-}
+            </script>';}	
+
+	$sql = "SELECT hora_dia, hora_inicio, hora_fin, tbl_cursos.curso_nombre FROM tbl_horario INNER JOIN tbl_cursos on tbl_horario.curso_codigo = tbl_cursos.curso_codigo where tbl_horario.docente_codigo =".$_SESSION['docente'];;
+	$res = $link->query($sql);
 
 ?>
-<html lang="en">
+
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+	 <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Los Alcazares</title>
@@ -45,7 +50,7 @@ if (isset($_SESSION["usuario"] )) {
 </head>
 <body>
 
-<div class="wrapper">
+	<div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-5.jpg">
 
     <!--
@@ -89,15 +94,16 @@ if (isset($_SESSION["usuario"] )) {
     </div>
 
     <div class="main-panel">
+        <div id="notify" >
+        </div>
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <a href="user.php" class="dropdown-toggle">
                               
                                 <p>Menú</p>
                             </a>
@@ -130,68 +136,48 @@ if (isset($_SESSION["usuario"] )) {
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-12">
                         <div class="card">
-                            <a href="vista_registro_notas.php">
                             <div class="header">
-                                <h4 class="title">Registro de notas</h4>
-                                <p class="category">
-                                    <img src="../assets\img\approve.png" align="right">
-                                </p>
+                                <h4 class="title">Configuracion periodos</h4>                                
                             </div>
                             <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
-                            </div>
-                        </a>
-                        </div>
-                    </div>
+                                <form>
+                                	<div class="content table-responsive table-full-width" id='mytable'>
+                                         <table class="table table-hover table-striped">
+								        	<tr>
+								        		
+								        		<th>Dia</th>
+								        		<th>Inicio</th>
+								        		<th>fin</th>
+								        		<th>curso</th>
+								        		
+								        	</tr>
+								        	<?php
 
-                    <div class="col-md-4">
-                        <div class="card">
+								        		while ($resgistro = $res->fetch_array(MYSQLI_BOTH)){
+								        			echo '<tr>
+								        				<td>'.$resgistro['hora_dia'].'</td>
+								        				<td>'.$resgistro['hora_inicio'].'</td>
+								        				<td>'.$resgistro['hora_fin'].'</td>
+								        				
+								        				<td>'.$resgistro['curso_nombre'].'</td>
+								        				
+								        				  </tr>';
+								        		}
 
-                            <div class="header">
-                                <h4 class="title">Dirección de grupo</h4>
-                                <p class="category"><img src="../assets\img\team.png" align="right"></p>
-                            </div>
-                            <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="col-md-4">
-                        <div class="card">
-                            <a href="view-horarioDocente.php">
-                            <div class="header">
-                                <h4 class="title">Horario</h4>
-                                <p class="category"><img src="../assets\img\calendar.png" align="right"></p>
+								        	  ?>
+
+								        </table>
+								    </div>
+                                    </form>
                             </div>
-                            <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
-                            </div>
-                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
         <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
@@ -204,8 +190,17 @@ if (isset($_SESSION["usuario"] )) {
                 </p>
             </div>
         </footer>
+        </div>
+        <!-- Sart Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-sm">
+                            <div  id="notifyModal">
 
-    </div>
+                           </div>
+                  </div>
+                </div>
+<!--  End Modal -->
+    
 </div>
 
 
@@ -227,17 +222,12 @@ if (isset($_SESSION["usuario"] )) {
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="../assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
+<script src="assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="../assets/js/demo.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-
-            demo.initChartist();
-
-            
-
-        });
-    </script>
 
 </html>
+								       
+
+
