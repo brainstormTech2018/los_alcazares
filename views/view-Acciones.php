@@ -2,7 +2,7 @@
 <?php 
 session_start();
 if (isset($_SESSION["usuario"] )) {
-  
+
 }else {
         echo '<SCRIPT LANGUAGE="javascript">
             location.href = "../index.html";
@@ -199,9 +199,11 @@ if (isset($_SESSION["usuario"] )) {
                                 <hr>
                             </div>
                             </div>
-                            <a href="view-AsignacionDirectorGrupo.php">
+                           
                         </div>
                     </div>
+
+                 
 
                    
                 </div>
@@ -256,5 +258,7 @@ if (isset($_SESSION["usuario"] )) {
 
         });
     </script>
+
+    
 
 </html>

@@ -153,7 +153,7 @@ if (isset($_SESSION["usuario"] )) {
 
                     <div class="col-md-4">
                         <div class="card">
-
+                            <a href="direccionGrupo.php">
                             <div class="header">
                                 <h4 class="title">Dirección de grupo</h4>
                                 <p class="category"><img src="../assets\img\team.png" align="right"></p>
@@ -166,6 +166,7 @@ if (isset($_SESSION["usuario"] )) {
                                 <hr>
                             </div>
                             </div>
+                            </a>
                         </div>
                     </div>
 

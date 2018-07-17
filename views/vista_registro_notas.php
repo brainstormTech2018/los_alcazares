@@ -132,12 +132,24 @@ if (isset($_SESSION["usuario"] )) {
               <div class="row">
                     <?php 
                     $NoCursos;
+                    $periodo;
+                    $fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
                     include ('../config/config.php');
 
+                    $sqlP = "SELECT periodo_id,periodo_fechaFin FROM tbl_periodo";
+
+                    $resultadoP = $link->query($sqlP);
+                        while ($rows = $resultadoP->fetch_assoc()){
+                            $fechaFinPeriodo = strtotime($rows['periodo_fechaFin']);
+                            if($fecha_actual < $fechaFinPeriodo){
+                                $periodo = $rows['periodo_id'];
+                            }
+                        } 
                     //numero cursos activos para el docente
-                    $sql = "SELECT curso_nombre, tbl_cursos.curso_codigo FROM `tbl_asignacion` INNER JOIN tbl_cursos on tbl_asignacion.curso_codigo = tbl_cursos.curso_codigo where tbl_asignacion.docente_documento = ".$_SESSION['docente'];
+                   $sql = "SELECT curso_nombre, tbl_cursos.curso_codigo FROM `tbl_asignacion` INNER JOIN tbl_cursos on tbl_asignacion.curso_codigo = tbl_cursos.curso_codigo where tbl_asignacion.docente_documento = ' ".$_SESSION['docente']."' and tbl_asignacion.periodo_codigo = $periodo";
                     $resultado = $link->query($sql);
                     //echo $sql;
+
                     while($rows = $resultado->fetch_assoc()){
                         echo '<div class="col-md-4">
                         <div class="card">
@@ -164,7 +176,7 @@ if (isset($_SESSION["usuario"] )) {
                                 </div>                             
                         </div>
                     </div>';
-}
+                }
               
 
                     ?>

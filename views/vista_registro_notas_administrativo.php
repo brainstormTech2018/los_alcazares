@@ -1,25 +1,19 @@
-
-<?php
- 
-	include ('../config/config.php');
+<?php 
+include ('../config/config.php');
 session_start();
 if (isset($_SESSION["usuario"] )) {
   
 }else {
         echo '<SCRIPT LANGUAGE="javascript">
             location.href = "../index.html";
-            </script>';}	
-
-	$sql = "SELECT estudiante_nombre,estudiante_apellido, curso_nombre FROM `tbl_cursos` INNER JOIN tbl_estudiantes on tbl_cursos.curso_codigo = tbl_estudiantes.curso_codigo where tbl_cursos.docente_documento = ".$_SESSION['docente'];;
-	$res = $link->query($sql);
-
+            </script>';
+}
 ?>
-
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-	 <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
+    <meta charset="utf-8" />
+   <link rel="icon" type="image/png" href="../assets/img/favicon.png">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Los Alcazares</title>
@@ -50,7 +44,7 @@ if (isset($_SESSION["usuario"] )) {
 </head>
 <body>
 
-	<div class="wrapper">
+<div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-5.jpg">
 
     <!--
@@ -68,48 +62,46 @@ if (isset($_SESSION["usuario"] )) {
             </div>
 
             <ul class="nav">
-                <li>
+                <li class="active">
+                    <a href="index.php">
+                        <i class="pe-7s-culture"></i>
+                        <p>Administrativo</p>
+                    </a>
+                </li>
+               <li>
                     <?php 
                         if(isset($_SESSION['userType'])){
-                            if($_SESSION['userType'] == 'docente'){
+                            if($_SESSION['userType'] == 'administrativo'){
                                 echo '<a href="#">';
                             }else{
                                 echo '<a href="index.php">';
                             }
                         }
                      ?>
+                    
                         <i class="pe-7s-graph"></i>
-                        <p>Administrativo</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="user.php">
-                        <i class="pe-7s-user"></i>
                         <p>Docente</p>
                     </a>
-                </li>
-                   
+                </li>                   
             </ul>
         </div>
     </div>
 
     <div class="main-panel">
-        <div id="notify" >
-        </div>
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
                             <a href="user.php" class="dropdown-toggle">
-                              
-                                <p>Menú</p>
+                                <p>Cursos asignados</p>
                             </a>
                         </li>
-                        <li class="dropdown">
-                              
+                      <li>
+                           
                         </li>
                         <li>
                            
@@ -133,50 +125,55 @@ if (isset($_SESSION["usuario"] )) {
                 </div>
             </div>
         </nav>
+
+
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <div class="col-md-12">
+              <div class="row">
+                    <?php 
+                    $NoCursos;
+                    $periodo;
+                    $fecha_actual = strtotime(date("d-m-Y H:i:00",time()));
+                    include ('../config/config.php');
+                    //numero cursos activos para el docente
+                   $sql = "SELECT curso_nombre, curso_codigo FROM `tbl_cursos`";
+                    $resultado = $link->query($sql);
+                    //echo $sql;
+
+                    while($rows = $resultado->fetch_assoc()){
+                        echo '<div class="col-md-4">
                         <div class="card">
-                            <div class="header">
-                                <h4 class="title">Direccion de grupo</h4>                                
-                            </div>
-                            <div class="content">
-                                <form>
-                                	<div class="content table-responsive table-full-width" id='mytable'>
-                                         <table class="table table-hover table-striped">
-								        	<tr>
-								        		
-								        		<th>Nombres</th>
-								        		<th>Apellidos</th>
-								        		<th>Curso</th>
-								        		
-								        		
-								        	</tr>
-								        	<?php
-
-								        		while ($resgistro = $res->fetch_array(MYSQLI_BOTH)){
-								        			echo '<tr>
-								        				<td>'.$resgistro['estudiante_nombre'].'</td>
-								        				<td>'.$resgistro['estudiante_apellido'].'</td>
-								        				    				
-								        				<td>'.$resgistro['curso_nombre'].'</td>
-								        				
-								        				  </tr>';
-								        		}
-
-
-								        	  ?>
-
-								        </table>
-								    </div>
-                                    </form>
-                            </div>
+                            
+                                <div class="header">
+                                    <h4 class="title">'.$rows['curso_nombre'].'</h4>
+                                    <p class="category">
+                                       <img src="../assets\img\approve.png" align="right">
+                                    </p>
+                                </div>
+                                <div class="content">
+                                  <br>
+                                  <br>
+                                  <br>
+                                <div class="footer">
+                                    <hr>                                    
+                                    
+                                    <a href="table-administrativos.php?curso='.$rows['curso_nombre'].'&codigo='.$rows['curso_codigo'].'">
+                                        <p align="left">Ver</p>
+                                    </a>
+                                </div>
+                                </div>                             
                         </div>
-                    </div>
+                    </div>';
+                }
+              
+
+                    ?>
                 </div>
             </div>
         </div>
+        
+
+
         <footer class="footer">
             <div class="container-fluid">
                 <nav class="pull-left">
@@ -189,17 +186,8 @@ if (isset($_SESSION["usuario"] )) {
                 </p>
             </div>
         </footer>
-        </div>
-        <!-- Sart Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                     <div class="modal-dialog modal-sm">
-                            <div  id="notifyModal">
 
-                           </div>
-                  </div>
-                </div>
-<!--  End Modal -->
-    
+    </div>
 </div>
 
 
@@ -221,12 +209,17 @@ if (isset($_SESSION["usuario"] )) {
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="../assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
-<script src="assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="../assets/js/demo.js"></script>
 
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            demo.initChartist();
+
+            
+
+        });
+    </script>
 
 </html>
-								       
-
-

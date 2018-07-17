@@ -17,7 +17,9 @@
             echo $_SESSION['docente'];
 
        } elseif ($usuario['tipo_usuario'] == 'administrativo') {
+
             header('Location: '.RUTA.'./views/index.php');
+           
         } else {
             header('Location: '.RUTA.'./login/control/login.php');
         }

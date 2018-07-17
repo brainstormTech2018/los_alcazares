@@ -10,7 +10,7 @@ if (isset($_SESSION["usuario"] )) {
             location.href = "../index.html";
             </script>';}	
 
-	$sql = "SELECT hora_dia, hora_inicio, hora_fin, tbl_cursos.curso_nombre FROM tbl_horario INNER JOIN tbl_cursos on tbl_horario.curso_codigo = tbl_cursos.curso_codigo where tbl_horario.docente_codigo =".$_SESSION['docente'];;
+	$sql = "SELECT hora_dia, hora_inicio, hora_fin, tbl_cursos.curso_nombre FROM tbl_horario INNER JOIN tbl_cursos on tbl_horario.curso_codigo = tbl_cursos.curso_codigo where tbl_horario.docente_codigo =".$_SESSION['docente'];
 	$res = $link->query($sql);
 
 ?>
@@ -139,7 +139,7 @@ if (isset($_SESSION["usuario"] )) {
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Configuracion periodos</h4>                                
+                                <h4 class="title">Horario</h4>                                
                             </div>
                             <div class="content">
                                 <form>
