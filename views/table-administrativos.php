@@ -10,7 +10,7 @@ if (isset($_SESSION["usuario"] )) {
             </script>';
 }
 $curso = $_GET['codigo'];
-$docente = $_SESSION['docente'];
+//$docente = $_SESSION['docente'];
  ?>
 <head>
 	<meta charset="utf-8" />
@@ -110,7 +110,7 @@ $docente = $_SESSION['docente'];
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                          <a class="text-info" onclick="listar();">Ver ultimo registro</a>
+                          
                         </li>
                         <li>
                              
