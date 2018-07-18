@@ -88,10 +88,10 @@ if (isset($_SESSION["usuario"] )) {
     </div>
 
     <div class="main-panel">
-        <a href="#" onclick="limpiar();">
+        
         <div id="notify" >
         </div>
-        </a>
+      
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -214,7 +214,8 @@ if (isset($_SESSION["usuario"] )) {
                                                         <option value="4.1">Ciclo 4.1 - Grado 8°</option>
                                                         <option value="4.2">Ciclo 4.2 - Grado 9°</option>
                                                         <option value="5">Ciclo 5 - Grado 10°</option>
-                                                        <option value="6">Ciclo 6 - Grado 11°</option>
+                                                        <option value="6.1">Ciclo 6.1 - Grado 11°</option>
+                                                        <option value="6.2">Ciclo 6.2 - Grado 11°</option>
 
                                                     </select>
                                                 </div>

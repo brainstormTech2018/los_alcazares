@@ -33,7 +33,7 @@ switch ($accion) {
 					$flag1 = 0;
 				}
 
-				$sql2 = "INSERT INTO tbl_horario(hora_inicio,hora_fin,hora_dia,curso_codigo,docente_codigo) VALUES ('$horaInicio','$horaFin','$dia','$curso','$docente')";
+				$sql2 = "INSERT INTO tbl_horario(hora_inicio,hora_fin,hora_dia,curso_codigo,docente_codigo,periodo_id) VALUES ('$horaInicio','$horaFin','$dia','$curso','$docente','$periodo')";
 				
 		$query2 = mysqli_query($link, $sql2);
 				if($query2 > 0){

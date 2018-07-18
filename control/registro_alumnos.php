@@ -23,7 +23,17 @@ switch ($accion) {
 			if($query){
 				if(mysqli_num_rows($query) > 0){
 					while ($row1 = mysqli_fetch_array($query)) {
-						echo('Documento ya registrado, REGISTRO: '.$row1['estudiante_nombre'].' '.$row1['estudiante_apellido']);
+						//echo('Documento ya registrado, REGISTRO: '.$row1['estudiante_nombre'].' '.$row1['estudiante_apellido']);
+					
+						echo "<div class='alert alert-success'>
+	            <div class='container-fluid'>
+					<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+						<i class='material-icons'></i>
+					</button>
+	            	<b>Documento ya registrado, REGISTRO: ".$row1['estudiante_nombre'].' '.$row1['estudiante_apellido']."</b>
+	            </div>
+	        </div>";
+
 					}
 				}
 				

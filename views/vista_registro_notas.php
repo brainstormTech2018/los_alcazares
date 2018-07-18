@@ -141,14 +141,14 @@ if (isset($_SESSION["usuario"] )) {
                     $resultadoP = $link->query($sqlP);
                         while ($rows = $resultadoP->fetch_assoc()){
                             $fechaFinPeriodo = strtotime($rows['periodo_fechaFin']);
-                            if($fecha_actual < $fechaFinPeriodo){
+                            if($fecha_actual < $fechaFinPeriodo){// si la fecha_Actual es menor al fin del periodo significa que el periodo ya acabó
                                 $periodo = $rows['periodo_id'];
                             }
                         } 
                     //numero cursos activos para el docente
-                   $sql = "SELECT curso_nombre, tbl_cursos.curso_codigo FROM `tbl_asignacion` INNER JOIN tbl_cursos on tbl_asignacion.curso_codigo = tbl_cursos.curso_codigo where tbl_asignacion.docente_documento = ' ".$_SESSION['docente']."' and tbl_asignacion.periodo_codigo = $periodo";
+                   $sql = "SELECT curso_nombre, tbl_cursos.curso_codigo FROM `tbl_asignacion` INNER JOIN tbl_cursos on tbl_asignacion.curso_codigo = tbl_cursos.curso_codigo where tbl_asignacion.docente_documento = ' ".$_SESSION['docente']."' and tbl_asignacion.periodo_codigo = $periodo GROUP BY tbl_asignacion.curso_codigo";
                     $resultado = $link->query($sql);
-                    //echo $sql;
+                    
 
                     while($rows = $resultado->fetch_assoc()){
                         echo '<div class="col-md-4">

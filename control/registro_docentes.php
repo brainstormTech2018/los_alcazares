@@ -22,14 +22,25 @@ switch ($accion) {
 			if($query){
 				if(mysqli_num_rows($query) > 0){
 					while ($row1 = mysqli_fetch_array($query)) {
-						echo('Documento ya registrado, REGISTRO: '.$row1['docente_nombre'].' '.$row1['docente_apellido']);
+						//echo('Documento ya registrado, REGISTRO: '.$row1['estudiante_nombre'].' '.$row1['estudiante_apellido']);
+					
+						echo "<div class='alert alert-success'>
+	            <div class='container-fluid'>
+					<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+						<i class='material-icons'></i>
+					</button>
+	            	<b>Documento ya registrado, REGISTRO: ".$row1['docente_nombre'].' '.$row1['docente_apellido']."</b>
+	            </div>
+	        </div>";
+
 					}
 				}
 				
 		    }
+
 		}else{
-			$sql1 = "INSERT INTO tbl_docentes(docente_documento,docente_nombre,docente_apellido,docente_direccion,docente_telefono,docente_email) VALUES (' $documento','$nombre','$apellido','$direccion','$telefono','$email')";
-			
+			$sql1 = "INSERT INTO tbl_docentes(docente_documento,docente_nombre,docente_apellido,docente_direccion,docente_telefono,docente_email) VALUES ('$documento','$nombre','$apellido','$direccion','$telefono','$email')";
+
 		$query1 = mysqli_query($link, $sql1);
 				if($query1 > 0){
 			$notificacion.="<div class='alert alert-success'>
@@ -40,18 +51,20 @@ switch ($accion) {
 	            	<b>¡Registro exitoso!</b>
 	            </div>
 	        </div>";
+			
 				}else{
 					$notificacion.="<div class='alert alert-danger'>
 						             <div class='container-fluid'>										 
 										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
 											clear
 										</button>
-						                 <b>Hubo un error</b>
+						                 <b>".$sql1."</b>
 						            </div>
 						        </div>";
 				}
 		}
 		echo $notificacion;
+
 	  break;
 
 	

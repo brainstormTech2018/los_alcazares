@@ -135,10 +135,10 @@ $curso = $_GET['codigo'];
    include ('../config/config.php');
 
                     //numero cursos activos para el docente
-                   $sql = "SELECT concat(tbl_docentes.docente_nombre,' ',tbl_docentes.docente_apellido)q,tbl_docentes.docente_documento as j FROM `tbl_asignacion` INNER JOIN tbl_docentes on tbl_asignacion.docente_documento = tbl_docentes.docente_documento WHERE tbl_asignacion.curso_codigo=".$_GET['codigo'];
+                   $sql = "SELECT concat(tbl_docentes.docente_nombre,' ',tbl_docentes.docente_apellido)q,tbl_docentes.docente_documento as j FROM `tbl_asignacion` INNER JOIN tbl_docentes on tbl_asignacion.docente_documento = tbl_docentes.docente_documento WHERE tbl_asignacion.curso_codigo=".$_GET['codigo']." GROUP BY tbl_asignacion.docente_documento";
                    
                     $resultado = $link->query($sql);
-                    //echo $sql;
+                   
 
                     while($rows = $resultado->fetch_assoc()){
                         echo '<div class="col-md-2">
