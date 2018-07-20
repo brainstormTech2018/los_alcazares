@@ -1,19 +1,21 @@
-<?php 
-include ('../config/config.php');
+
+<?php
+ 
+	include ('../config/config.php');
 session_start();
 if (isset($_SESSION["usuario"] )) {
   
 }else {
         echo '<SCRIPT LANGUAGE="javascript">
             location.href = "../index.html";
-            </script>';
-}
- ?>
-<!doctype html>
-<html lang="en">
+            </script>';}	
+?>
+
+<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+	 <meta charset="utf-8" />
+    <link rel="icon" type="image/png" href="../assets/img/favicon.ico">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 
     <title>Los Alcazares</title>
@@ -44,7 +46,7 @@ if (isset($_SESSION["usuario"] )) {
 </head>
 <body>
 
-<div class="wrapper">
+	<div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-5.jpg">
 
     <!--
@@ -53,8 +55,7 @@ if (isset($_SESSION["usuario"] )) {
         Tip 2: you can also add an image using data-image tag
 
     -->
-
-        <div class="sidebar-wrapper">
+ <div class="sidebar-wrapper">
             <div class="logo">
                 <a href="" class="simple-text">
                    Los Alcazares
@@ -62,13 +63,7 @@ if (isset($_SESSION["usuario"] )) {
             </div>
 
             <ul class="nav">
-                <li class="active">
-                    <a href="index.php">
-                        <i class="pe-7s-culture"></i>
-                        <p>Administrativo</p>
-                    </a>
-                </li>
-               <li>
+                <li>
                     <?php 
                         if(isset($_SESSION['userType'])){
                             if($_SESSION['userType'] == 'administrativo'){
@@ -78,29 +73,27 @@ if (isset($_SESSION["usuario"] )) {
                             }
                         }
                      ?>
-                    
                         <i class="pe-7s-graph"></i>
-                        <p>Docente</p>
+                        <p>Administrativo</p>
                     </a>
-                </li>                   
+                </li>
+               
+                   
             </ul>
         </div>
     </div>
 
     <div class="main-panel">
-        
         <div id="notify" >
         </div>
-      
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="index.php" class="dropdown-toggle" >
+                            <a href="index.php" class="dropdown-toggle">
                               
                                 <p>Menú</p>
                             </a>
@@ -136,105 +129,56 @@ if (isset($_SESSION["usuario"] )) {
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Registro alumno</h4>                                
+                                <h4 class="title">Registros de Acceso</h4>                                
                             </div>
                             <div class="content">
-                                <form method="POST" id="client">
-                                        <div class="row">
+                                <form>
+                                      <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Nombre</label>
-                                                    <input type="text" class="form-control" placeholder="Nombres" name="alu_nombre" id="alu_nombre" required />
+                                                    <label>Usuario</label>
+                                                    <input type="text" class="form-control" placeholder="Usuario" name="user" id="user" required />
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Apellido</label>
-                                                    <input type="text" class="form-control" placeholder="Apellidos" name="alu_apellido" id="alu_apellido" required />
+                                                    <label>Contraseña</label>
+                                                    <input type="text" class="form-control" placeholder="Contraseña" name="pass" id="pass" required />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Tipo identificación</label>
-                                                    <select class="form-control" name="alu_identificacion" id="alu_identificacion" required>
-                                                        <option value="" disabled selected>Elige una opción</option>
-                                                        <option value="C.C.">Cédula de ciudadania</option>
-                                                        <option value="T.I.">Tarjeta de identidad</option>
-                                                    </select>
 
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Número</label>
-                                                    <input type="text" class="form-control" placeholder="Número de documento" name="alu_documento" id="alu_documento" required />
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Teléfono</label>
-                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_telefono" id="alu_telefono" required />
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Dirección</label>
-                                                    <input type="text" class="form-control" placeholder="Residencia" name="alu_direccion" id="alu_direccion" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Correo</label>
-                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_correo" id="alu_correo" required />
-                                                </div>
-                                            </div>
-                                           <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label>Estado</label>
-                                                    <br>
-                                                    <input type="radio" name="alu_activo" id="alu_activo" value="1"/>Activo<br/>
-                                                    <input type="radio" name="alu_activo" id="alu_activo" value="0"/>Inactivo</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            
-                                            <div class="col-md-6">
-                                                <label>Ciclo</label>
-                                                <div class="form-group">
-                                                    <select class="form-control" name="alu_curso" id="alu_curso" required>
-                                                        <option value="" disabled selected>Elige una opción</option>
-                                                        <option value="3">Ciclo 3 - Grado 6° y 7°</option>
-                                                        <option value="4.1">Ciclo 4.1 - Grado 8°</option>
-                                                        <option value="4.2">Ciclo 4.2 - Grado 9°</option>
-                                                        <option value="5">Ciclo 5 - Grado 10°</option>
-                                                        <option value="6.1">Ciclo 6.1 - Grado 11°</option>
-                                                        <option value="6.2">Ciclo 6.2 - Grado 11°</option>
 
-                                                    </select>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Tipo de usuario</label>
+                                                    <input type="text" class="form-control" placeholder="Administrativo o Docecente" name="tipo" id="tipo" required />
+                                                </div>
+                                                
+                                            </div>
+                                             <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Documento</label>
+                                                    <input type="text" class="form-control" placeholder="Documento" name="documento" id="documento" required />
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+
+                                         <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Docente" onclick="listar(1);">Registrar</a>
+                                                </div>
+                                            </div>
+                                              <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Docente" onclick="listar(2);">Borrar por documento</a>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Alumno" onclick="listar(1);">Registrar</a>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Alumno" onclick="listar(2);">Actualizar</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                    </form>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -253,7 +197,17 @@ if (isset($_SESSION["usuario"] )) {
                 </p>
             </div>
         </footer>
-    </div>
+        </div>
+        <!-- Sart Modal -->
+                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                     <div class="modal-dialog modal-sm">
+                            <div  id="notifyModal">
+
+                           </div>
+                  </div>
+                </div>
+<!--  End Modal -->
+    
 </div>
 
 
@@ -275,10 +229,10 @@ if (isset($_SESSION["usuario"] )) {
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="../assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
+<script src="assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="../assets/js/demo.js"></script>
-
-    <script type="text/javascript">
+  <script type="text/javascript">
     $('[data-toggle="tooltip"]').tooltip();
 
     $(document).ready(function () {
@@ -295,36 +249,34 @@ if (isset($_SESSION["usuario"] )) {
 </script>
 <script type="text/javascript">  
     var listar = function(accion){
-        var identificacion = $("#alu_identificacion").val();
-        var documento = $("#alu_documento").val();
-        var nombre = $("#alu_nombre").val();
-        var apellido = $("#alu_apellido").val();
-        var direccion = $("#alu_direccion").val();
-        var telefono = $("#alu_telefono").val();
-        var email = $("#alu_correo").val();
-        var activo = $("#alu_activo").val();
-        var curso = $("#alu_curso").val();
+        var usuario = $("#user").val();
+        var contrasena = $("#pass").val();
+        var tipo = $("#tipo").val();
+        var documento = $("#documento").val();
+        
 
 
        $.ajax({   
        type: "POST",
-       url:"../control/registro_alumnos.php",
-       data:{"insertar":accion,"alu_documento":documento,"alu_nombre":nombre, "alu_apellido":apellido, "alu_direccion":direccion, "alu_telefono":telefono, "alu_correo":email, "alu_identificacion":identificacion,"alu_activo":activo, "alu_curso":curso},
+       url:"../control/registro_usuario.php",
+       data:{"insertar":accion,"user":usuario,"pass":contrasena, "tipo":tipo, "documento":documento},
        success: function(notify){       
          $('#notify').html(notify); 
          //alert(nombre);        
        }
        
      });}
-   </script>
+</script>
 
    <script type="text/javascript">
     var limpiar = function() {
      $("#client")[0].reset();
-     document.getElementById('notify').style.display = 'none';}
+     
 }
 
    </script>
 
-
 </html>
+								       
+
+

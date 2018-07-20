@@ -67,5 +67,40 @@ switch ($accion) {
 		}
 		echo $notificacion;
 	  break;
+
+	  case 2://Actualizar estudiante
+	  $tipoDocumento=$_POST['alu_identificacion'];
+		$documento = $_POST['alu_documento'];
+		$nombre = $_POST['alu_nombre'];
+		$apellido = $_POST['alu_apellido'];
+		$activo=$_POST['alu_activo'];
+		$direccion = $_POST['alu_direccion'];
+		$email = $_POST['alu_correo'];
+		$telefono = $_POST['alu_telefono'];
+		$curso=$_POST['alu_curso'];	
+
+		$sql1 = " UPDATE tbl_estudiantes SET estudiante_tipoDocumento='$tipoDocumento', estudiante_nombre='$nombre', estudiante_apellido='$apellido', estudiante_activo='$activo', estudiante_direccion='$direccion', estudiante_correo='$email', estudiante_telefono='$telefono', curso_codigo='$curso' WHERE estudiante_documento='$documento'" ;
+
+		$query1 = mysqli_query($link, $sql1);
+				if($query1 > 0){
+			$notificacion.="<div class='alert alert-success'>
+	            <div class='container-fluid'>
+					<b>¡Actualizacion exitoso!</b>
+	            </div>
+	        </div>";
+		}else{
+			$notificacion.="<div class='alert alert-danger'>
+						             <div class='container-fluid'>										 
+										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
+											clear
+										</button>
+						                 <b>Documento no Encontrado</b>
+						            </div>
+						        </div>";
+		}
+		echo $notificacion;
+
+		
+	break;
 }
 ?>

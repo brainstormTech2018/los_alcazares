@@ -168,6 +168,25 @@ if (isset($_SESSION["usuario"] )) {
                     </div>
 
                     <div class="col-md-4">
+                        <a href="view_usuarios.php">
+                        <div class="card">
+                            <div class="header">
+                                <h4 class="title">Usuarios</h4>
+                                <p class="category"><img src="../assets\img\learning.png" align="right"></p>
+                            </div>
+                            <div class="content">
+                              <br>
+                              <br>
+                              <br>
+                            <div class="footer">
+                                <hr>
+                            </div>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
+
+                    <div class="col-md-4">
                         <div class="card">
                             <a href="vista_registro_notas_administrativo.php">
                             <div class="header">
