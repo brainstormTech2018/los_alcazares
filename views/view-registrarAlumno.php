@@ -191,7 +191,7 @@ if (isset($_SESSION["usuario"] )) {
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Correo</label>
-                                                    <input type="text" class="form-control" placeholder="Teléfono de contacto" name="alu_correo" id="alu_correo" required />
+                                                    <input type="email" class="form-control" placeholder="Teléfono de contacto" name="alu_correo" id="alu_correo" required />
                                                 </div>
                                             </div>
                                            <div class="col-md-6">

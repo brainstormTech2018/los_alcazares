@@ -137,13 +137,13 @@ if (isset($_SESSION["usuario"] )) {
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Usuario</label>
-                                                    <input type="text" class="form-control" placeholder="Usuario" name="user" id="user" required />
+                                                    <input type="text" class="form-control" placeholder="Usuario" name="user" id="user"/>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Contraseña</label>
-                                                    <input type="text" class="form-control" placeholder="Contraseña" name="pass" id="pass" required />
+                                                    <input type="password" class="form-control" placeholder="Contraseña" name="pass" id="pass" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -153,7 +153,11 @@ if (isset($_SESSION["usuario"] )) {
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label>Tipo de usuario</label>
-                                                    <input type="text" class="form-control" placeholder="Administrativo o Docecente" name="tipo" id="tipo" required />
+                                                    <select class="form-control" name="tipo" id="tipo" required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <option value="docente">Docente</option>
+                                                        <option value="administrativo">Administrativo</option>
+                                                    </select>
                                                 </div>
                                                 
                                             </div>
@@ -169,7 +173,7 @@ if (isset($_SESSION["usuario"] )) {
                                          <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Docente" onclick="listar(1);">Registrar</a>
+                                                    <input type="submit" name="registra" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Docente" onclick="listar(1);">Registrar/>
                                                 </div>
                                             </div>
                                               <div class="col-md-6">
@@ -214,6 +218,7 @@ if (isset($_SESSION["usuario"] )) {
 </body>
 
     <!--   Core JS Files   -->
+    
     <script src="../assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
     <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
 
@@ -275,6 +280,7 @@ if (isset($_SESSION["usuario"] )) {
 }
 
    </script>
+   
 
 </html>
 								       

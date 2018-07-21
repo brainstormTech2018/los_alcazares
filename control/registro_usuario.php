@@ -56,11 +56,8 @@ case 2://eliminar
 	
 		$documento = $_POST['documento'];
 
- $sql2 = "SELECT usuario,contrasena,tipo_usuario from usuario  WHERE id_docente = '$documento'";;
+ $sql2 = "SELECT usuario,contrasena,tipo_usuario from usuario  WHERE id_docente = '$documento'";
 	  	$query = mysqli_query($link, $sql2);
-		if(mysqli_num_rows($query) > 0)
-
-		if($query){
 			if(mysqli_num_rows($query) > 0){
 				$sql1 = "DELETE FROM usuario WHERE id_docente='$documento'";
 				$query1 = mysqli_query($link, $sql1);
@@ -75,14 +72,13 @@ case 2://eliminar
 	        </div>";
 				}
 				
-				}
 			}else{
 					$notificacion.="<div class='alert alert-danger'>
 						             <div class='container-fluid'>										 
 										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
 											clear
 										</button>
-						                 <b>No se encontro Registro</b>
+						                 <b>No se encontro Registro intentelo de nuevo</b>
 						            </div>
 						        </div>";
 		}
