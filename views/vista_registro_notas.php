@@ -166,9 +166,6 @@ if (isset($_SESSION["usuario"] )) {
                                   <br>
                                 <div class="footer">
                                     <hr>                                    
-                                    <a href="../control/reportes/listaCurso.php?curso='.$rows['curso_codigo'].'&docente=102">
-                                        <p align="rigth">Descargar plantilla</p>
-                                    </a>
                                     <a href="table.php?curso='.$rows['curso_nombre'].'&codigo='.$rows['curso_codigo'].'">
                                         <p align="left">Cargar</p>
                                     </a>

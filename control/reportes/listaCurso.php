@@ -1,7 +1,10 @@
 <?php 
-
+session_start();
 require '../../libs/excell/Classes/PHPExcel.php';
 $curso = $_GET['curso'];
+$documento = $_GET['documento'];
+
+$hoy = getdate();
 
 $conexion = new mysqli('localhost','root','','colegio_alcazares',3306);
 if (mysqli_connect_errno()) {
@@ -10,9 +13,10 @@ if (mysqli_connect_errno()) {
 }
 
 
-$consulta = "SELECT concat(estudiante_nombre,' ',estudiante_apellido)q, estudiante_documento FROM `tbl_estudiantes` WHERE curso_codigo = $curso";
+$consulta = "SELECT concat(estudiante_nombre,' ',estudiante_apellido)q, estudiante_documento FROM `tbl_estudiantes` WHERE estudiante_documento = $documento";
 $resultado = $conexion->query($consulta);
 
+ 
 
 if($resultado->num_rows > 0 ){
 
@@ -21,46 +25,52 @@ if($resultado->num_rows > 0 ){
 	// Se asignan las propiedades del libro
 $objPHPExcel->getProperties()->setCreator("Los alcazares") // Nombre del autor
     
-    ->setTitle("Reporte de alumnos") // Titulo
+    ->setTitle("BOLETIN DE DESEMPEÑOS  ".$hoy['year']) // Titulo
     ->setDescription("Reporte de alumnos"); //Descripción
     
 
 
- $tituloReporte = "Relación de alumnos y notas 1 Periodo ";
- $titulosColumnas = array('NOMBRE', 'OBERVACIONES', '1 NOTA', '2 NOTA', '3 NOTA', 'DEFINITIVA', 'CICLO');
+ $tituloReporte = "BOLETIN DE DESEMPEÑOS ".$hoy['year'];
+ $titulosColumnas = array('SEMANA','DOCUMENTO', 'ACADEMICO', 'PERSONAL', 'SOCIAL', 'PROMEDIO', 'CICLO', 'OBSERVACION');
 
 // Se combinan las celdas A1 hasta D1, para colocar ahí el titulo del reporte
 $objPHPExcel->setActiveSheetIndex(0)
-    ->mergeCells('A1:G1')
-    ->mergeCells('A2:G2');
- 
+    ->mergeCells('A1:H1')
+    ->mergeCells('A2:D2')
+    ->mergeCells('E2:H2');
+
 // Se agregan los titulos del reporte
+    $fila = $resultado->fetch_array();
 $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('A1',$tituloReporte) // Titulo del reporte
-    ->setCellValue('A2',"CICLO: ".$curso)
+    ->setCellValue('A2',"Nombre: ".$fila['q'])
+    ->setCellValue('E2',"Ciclo: ".$curso)
     ->setCellValue('A3',  $titulosColumnas[0])  //Titulo de las columnas
     ->setCellValue('B3',  $titulosColumnas[1])
     ->setCellValue('C3',  $titulosColumnas[2])
     ->setCellValue('D3',  $titulosColumnas[3])
     ->setCellValue('E3',  $titulosColumnas[4])
     ->setCellValue('F3',  $titulosColumnas[5])
-    ->setCellValue('G3',  $titulosColumnas[6]);
+    ->setCellValue('G3',  $titulosColumnas[6])
+    ->setCellValue('H3',  $titulosColumnas[7]);
 
 
     //Se agregan los datos de los alumnos
  
  $i = 4; //Numero de fila donde se va a comenzar a rellenar
- while ($fila = $resultado->fetch_array()) {
+ do {
+  
      $objPHPExcel->getActiveSheet()
-         ->setCellValue('A'.$i, $fila['q'])
+         ->setCellValue('A'.$i, ''.$i-3)
          ->setCellValue('B'.$i, $fila['estudiante_documento'])
          ->setCellValue('C'.$i, '0')
          ->setCellValue('D'.$i, '0')
          ->setCellValue('E'.$i, '0')
-         ->setCellValue('F'.$i, '=(sum(C'.$i.':E'.$i.'))/3')
+         ->setCellValue('F'.$i, '=((sum(C'.$i.':E'.$i.'))/3)')
          ->setCellValue('G'.$i, $curso);
+     
      $i++;
- }
+ }while ($i <= 10); 
 
  $estiloTituloReporte = array(
     'font' => array(
@@ -130,10 +140,11 @@ $estiloInformacion->applyFromArray( array(
     )
     ));
 
-$objPHPExcel->getActiveSheet()->getStyle('A1:G1')->applyFromArray($estiloTituloReporte);
-$objPHPExcel->getActiveSheet()->getStyle('A2:G2')->applyFromArray($estiloTituloReporte);
-$objPHPExcel->getActiveSheet()->getStyle('A3:G3')->applyFromArray($estiloTituloColumnas);
-$objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A4:G".($i-1));
+$objPHPExcel->getActiveSheet()->getStyle('A1:H1')->applyFromArray($estiloTituloReporte);
+$objPHPExcel->getActiveSheet()->getStyle('A2:H2')->applyFromArray($estiloTituloColumnas);
+$objPHPExcel->getActiveSheet()->getStyle('A3:H3')->applyFromArray($estiloTituloColumnas);
+
+$objPHPExcel->getActiveSheet()->setSharedStyle($estiloInformacion, "A4:H".($i-1));
 
 for ($j=0; $j < $i ; $j++) { 
    $objPHPExcel->getActiveSheet()->getStyle('F'.$j)->getNumberFormat()->setFormatCode(PHPExcel_Style_NumberFormat::FORMAT_NUMBER_00);
@@ -145,7 +156,7 @@ for ($j=0; $j < $i ; $j++) {
    
 }
 
-for($i = 'A'; $i <= 'G'; $i++){
+for($i = 'A'; $i <= 'H'; $i++){
     $objPHPExcel->setActiveSheetIndex(0)->getColumnDimension($i)->setAutoSize(TRUE);
 }
 

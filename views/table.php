@@ -41,7 +41,7 @@ $docente = $_SESSION['docente'];
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
-<body>
+<?php  echo '<body onload=cargar('.$_GET['codigo'].');>'?>
 
 <div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-5.jpg">
@@ -110,12 +110,10 @@ $docente = $_SESSION['docente'];
 
                     <ul class="nav navbar-nav navbar-right">
                         <li>
-                          <a class="text-info" onclick="listar();">Ver ultimo registro</a>
+                          
                         </li>
                         <li>
-                             <a class="text-info" data-toggle="modal" data-target="#myModal">
-                                <p>Cargue de notas</p>
-                             </a>
+                             
                         </li>
                         <li>
                             <a href="../login/control/close.php" class="dropdown-item text-danger">
@@ -153,7 +151,7 @@ $docente = $_SESSION['docente'];
                                             <td>-</td>
                                             <td>-</td>
                                         </tr>
-                                        </tbody>
+                                    </tbody>
                                     </table>
                             </div>
                         </div>
@@ -237,12 +235,14 @@ $filas = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
 
 //Creamos un array con todos los datos del Excel importado
 for ($i=4;$i<=$filas;$i++){
-                        $_DATOS_EXCEL[$i]['observacion']= $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue();
-                        $_DATOS_EXCEL[$i]['nota_1']= $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue();
-                        $_DATOS_EXCEL[$i]['nota_2']= $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue();
-                        $_DATOS_EXCEL[$i]['nota_3'] = $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue();
-                        $_DATOS_EXCEL[$i]['definitiva'] = $objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['semana']= $objPHPExcel->getActiveSheet()->getCell('A'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['estudiante']= $objPHPExcel->getActiveSheet()->getCell('B'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['academico']= $objPHPExcel->getActiveSheet()->getCell('C'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['nopersonal'] = $objPHPExcel->getActiveSheet()->getCell('D'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['social'] = $objPHPExcel->getActiveSheet()->getCell('E'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['promedio'] = round($objPHPExcel->getActiveSheet()->getCell('F'.$i)->getCalculatedValue(),2);
                         $_DATOS_EXCEL[$i]['ciclo'] = $objPHPExcel->getActiveSheet()->getCell('G'.$i)->getCalculatedValue();
+                        $_DATOS_EXCEL[$i]['observacion'] = $objPHPExcel->getActiveSheet()->getCell('H'.$i)->getCalculatedValue();
                         
                         $_DATOS_EXCEL[$i]['activo'] = 1;
                     }       
@@ -250,13 +250,17 @@ for ($i=4;$i<=$filas;$i++){
 
 
 foreach($_DATOS_EXCEL as $campo => $valor){
-                        $sql = "INSERT INTO tbl_notas  (estudiante_codigo,nota_1,nota_2,nota_3,nota_definitiva,curso_codigo,activo,nota_fecha,docente_codigo)  VALUES ('";
+                        $sql = "INSERT INTO tbl_notas  (nota_semana,estudiante_codigo,nota_academico,nota_personal,nota_soacial,nota_promedio,curso_codigo,nota_observacion,activo,docente_codigo)  VALUES ('";
                         foreach ($valor as $campo2 => $valor2){
-                            $campo2 == "activo" ? $sql.= $valor2."',now(),' ".$_SESSION['docente']."');" : $sql.= $valor2."','";
+                            $campo2 == "activo" ? $sql.= $valor2."',' ".$_SESSION['docente']."');" : $sql.= $valor2."','";
                         }
 
                         $result = mysql_query($sql);
-                        if (!$result){ echo "sentencia: ".$sql;}
+                        if (!$result){
+                         echo "sentencia: ".$sql;
+                     }else{
+                        
+                     }
                     }   
                     /////////////////////////////////////////////////////////////////////////   
 echo "<hr> <div class='col-xs-12'>
@@ -319,14 +323,14 @@ echo "</div>
         });
         </script>
 <script>
-        
-        var listar = function(accion){
-            var docente = <?php echo $docente ?>;
+        var cargar = function(curso){
+            
         var curso = <?php echo $curso ?>;
-             $.get("../control/consulta.php?curso="+curso+"&docente="+docente)
+             $.get("../control/consulta-detalleCurso.php?curso="+curso)
             .done(function(mytable){
             $("#mytable").html(mytable);
             });
+
       
         }
        

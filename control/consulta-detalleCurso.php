@@ -1,7 +1,7 @@
 <?php 
 include '../config/config.php';
 
-$curso = $_POST['curso'];
+$curso = $_GET['curso'];
 $activo = "Inactivo";
 $sql = "SELECT concat(estudiante_nombre,' ',estudiante_apellido)r, estudiante_activo, estudiante_documento FROM `tbl_estudiantes` WHERE curso_codigo =".$curso;
 
@@ -14,7 +14,7 @@ $tablaHtml = '<table class="table table-hover table-striped">
                                     	<th>Apellido</th>
                                     	<th>Activo</th>
                                     	<th>Documento</th>
-                                        
+                                        <th><center>Acciones</center></th>
                                     </thead>
                                     <tbody>';
 while($rows = $resultado->fetch_assoc()){
@@ -26,7 +26,11 @@ while($rows = $resultado->fetch_assoc()){
                     <td>' . $rows['r'].'</td>
 	                <td>' . $rows['r']. '</td>
 	                <td>' . $activo. '</td>
-	                <td>' . $rows['estudiante_documento']. '</td>
+	                <td><a href="../control/reportes/listaCurso.php?documento='.$rows['estudiante_documento'].'&curso='.$curso.'">' . $rows['estudiante_documento']. '</a></td>
+                    <td><center><a class="text-info" data-toggle="modal" data-target="#myModal">
+                               <h3> <span class="pe-7s-up-arrow"></span></h3>
+                                <p class="hidden-lg hidden-md">Dashboard</p>
+                            </a></center></td>
 	            </tr>
             ';
 
