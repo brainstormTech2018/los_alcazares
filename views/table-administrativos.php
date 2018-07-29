@@ -151,13 +151,7 @@ $curso = $_GET['codigo'];
                                </a>
                             <br>
                         </div>
-                        </div>
-
-
-
-                        '
-
-                        ;
+                        </div>';
                 }
  ?>
 
@@ -213,6 +207,8 @@ $curso = $_GET['codigo'];
 </div>
 </body>
 
+<script src="https://unpkg.com/ionicons@4.2.5/dist/ionicons.js"></script>
+
  <!--   Core JS Files   -->
     <script src="../assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
     <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -249,7 +245,7 @@ $curso = $_GET['codigo'];
 <script>
         
         var listar = function(curso,docente){
-           $.get("../control/consulta.php?curso="+curso+"&docente="+docente)
+           $.get("../control/consulta_administrativos.php?curso="+curso+"&docente="+docente)
             .done(function(mytable){
             $("#mytable").html(mytable);
             });

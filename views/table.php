@@ -13,6 +13,16 @@ $curso = $_GET['codigo'];
 $docente = $_SESSION['docente'];
  ?>
 <head>
+    <!-- cache -->
+
+<meta http-equiv="Expires" content="0">
+
+<meta http-equiv="Last-Modified" content="0">
+
+<meta http-equiv="Cache-Control" content="no-cache, mustrevalidate">
+
+<meta http-equiv="Pragma" content="no-cache">
+    <!-- cache -->
 	<meta charset="utf-8" />
 	<link rel="icon" type="image/png" href="../assets/img/favicon.png">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -41,7 +51,7 @@ $docente = $_SESSION['docente'];
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 </head>
-<?php  echo '<body onload=cargar('.$_GET['codigo'].');>'?>
+<?php  echo '<body onload="cargar('.$_GET['codigo'].');">'?>
 
 <div class="wrapper">
     <div class="sidebar" data-color="purple" data-image="../assets/img/sidebar-5.jpg">
@@ -113,7 +123,9 @@ $docente = $_SESSION['docente'];
                           
                         </li>
                         <li>
-                             
+                             <a href="#" onclick="limpiar();">
+                                        <i class="nc-icon nc-button-power"></i> Limpiar
+                                    </a>
                         </li>
                         <li>
                             <a href="../login/control/close.php" class="dropdown-item text-danger">
@@ -184,18 +196,19 @@ $docente = $_SESSION['docente'];
                         </div>
                         <div class="modal-body text-center">
                            <div class="container">
-                            <form name="importa" method="post" action="" enctype="multipart/form-data" >
+                            <form name="importa" id="importa" method="post" action="" enctype="multipart/form-data" >
                               <div class="col-xs-4">
                                 <div class="form-group">
                                   <input type="file" class="filestyle" data-buttonText="Seleccione archivo" name="excel">
                                 </div>
                               </div>
                               <div class="col-xs-2">
-                                <input class="btn btn-default btn-file" type='submit' name='enviar'  value="Importar"/>
+                                <input class="btn btn-default btn-file" type='submit' name='enviar' value="Importar"/>
                               </div>
                               <input type="hidden" value="upload" name="action" />
                               <input type="hidden" value="usuarios" name="mod">
                               <input type="hidden" value="masiva" name="acc">
+                              
 
                             </form>
 <!-- PROCESO DE CARGA Y PROCESAMIENTO DEL EXCEL-->
@@ -247,10 +260,21 @@ for ($i=4;$i<=$filas;$i++){
                         $_DATOS_EXCEL[$i]['activo'] = 1;
                     }       
                     $errores=0;
+include ('../config/config.php');
+        $sqlS = "SELECT *  FROM tbl_notas WHERE estudiante_codigo = ".$_DATOS_EXCEL[4]['estudiante']." AND docente_codigo =".$_SESSION['docente'];
+        $query = mysqli_query($link, $sqlS);
 
+if(mysqli_num_rows($query) > 0){  
+echo "<hr> <div class='col-xs-12'>
+        <div class='form-group'>";
+          echo "<strong><center>RELACION DE NOTAS YA REGISTRADA</center></strong>";
+echo "</div>
+</div>  ";
+
+}else{ 
 
 foreach($_DATOS_EXCEL as $campo => $valor){
-                        $sql = "INSERT INTO tbl_notas  (nota_semana,estudiante_codigo,nota_academico,nota_personal,nota_soacial,nota_promedio,curso_codigo,nota_observacion,activo,docente_codigo)  VALUES ('";
+                      $sql = "INSERT INTO tbl_notas  (nota_semana,estudiante_codigo,nota_academico,nota_personal,nota_soacial,nota_promedio,curso_codigo,nota_observacion,activo,docente_codigo)  VALUES ('";
                         foreach ($valor as $campo2 => $valor2){
                             $campo2 == "activo" ? $sql.= $valor2."',' ".$_SESSION['docente']."');" : $sql.= $valor2."','";
                         }
@@ -258,17 +282,20 @@ foreach($_DATOS_EXCEL as $campo => $valor){
                         $result = mysql_query($sql);
                         if (!$result){
                          echo "sentencia: ".$sql;
-                     }else{
-                        
-                     }
-                    }   
+                        }
+
+
+               $sqlC = "UPDATE `tbl_estudiantes` SET `estudiante_jornada`='SI' WHERE tbl_estudiantes.estudiante_documento =".$_DATOS_EXCEL[4]['estudiante'];
+            $result2 = mysql_query($sqlC);     
+        }  
+   
                     /////////////////////////////////////////////////////////////////////////   
 echo "<hr> <div class='col-xs-12'>
         <div class='form-group'>";
           echo "<strong><center>ARCHIVO IMPORTADO CON EXITO, EN TOTAL $campo REGISTROS Y $errores ERRORES</center></strong>";
 echo "</div>
 </div>  ";
-                            //Borramos el archivo que esta en el servidor con el prefijo cop_
+  }                           //Borramos el archivo que esta en el servidor con el prefijo cop_
                     unlink($destino);
                     
                 }
@@ -286,6 +313,17 @@ echo "</div>
                 </div>
 </div>
 <!--  End Modal -->
+<!-- Sart Modal -->
+                       <div class="modal fade" id="tablaModal" tabindex="-1" role="dialog" aria-labelledby="tablaModalLabel" aria-hidden="true">
+                        
+                        <div class="modal-body">
+                           <div class="container" id="cardTabla">             
+                           </div>
+                       </div>
+
+                       </div>
+<!--  End Modal -->
+
 </div>
 </body>
 
@@ -304,7 +342,7 @@ echo "</div>
 
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
-
+    <script src="https://unpkg.com/ionicons@4.2.4/dist/ionicons.js"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="assets/js/demo.js"></script>
 <script type="text/javascript">
@@ -323,18 +361,42 @@ echo "</div>
         });
         </script>
 <script>
-        var cargar = function(curso){
+        var cargar = function(){
             
         var curso = <?php echo $curso ?>;
              $.get("../control/consulta-detalleCurso.php?curso="+curso)
             .done(function(mytable){
             $("#mytable").html(mytable);
-            });
-
-      
+            });      
         }
+
+
+
        
 </script>
+<script>
+
+        var verificar = function(alumno){
+            var curso = <?php echo $curso ?>;
+        var docente = <?php echo $docente ?>;
+             $.get("../control/consulta.php?curso="+curso+"&docente="+docente+"&alumno="+alumno)
+            .done(function(cardTabla){
+            $("#cardTabla").html(cardTabla);
+            });
+          
+         
+            $("#tablaModal").modal('show');
+
+}
+
+</script>
+<script type="text/javascript">
+    var limpiar = function() {
+     $("#importa")[0].reset();
+    }
+}
+
+   </script>
 
   
 </html>

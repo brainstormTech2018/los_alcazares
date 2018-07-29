@@ -27,10 +27,16 @@ while($rows = $resultado->fetch_assoc()){
 	                <td>' . $rows['r']. '</td>
 	                <td>' . $activo. '</td>
 	                <td><a href="../control/reportes/listaCurso.php?documento='.$rows['estudiante_documento'].'&curso='.$curso.'">' . $rows['estudiante_documento']. '</a></td>
-                    <td><center><a class="text-info" data-toggle="modal" data-target="#myModal">
-                               <h3> <span class="pe-7s-up-arrow"></span></h3>
-                                <p class="hidden-lg hidden-md">Dashboard</p>
-                            </a></center></td>
+                    <td><h3><p><center><a  href="#" class="text-info" data-toggle="modal" data-target="#myModal">
+                                <ion-icon name="cloud-upload"></ion-icon>
+                                
+                            </a>
+                            <a href="#" onclick=verificar('.$rows['estudiante_documento'].');>
+                               <ion-icon name="eye"></ion-icon>
+                                
+                            </a></center></p></h3>
+                    </td>
+
 	            </tr>
             ';
 

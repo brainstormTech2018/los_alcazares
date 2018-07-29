@@ -90,7 +90,12 @@ if (isset($_SESSION["usuario"] )) {
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
-                    
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navigation-example-2">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
@@ -170,6 +175,7 @@ if (isset($_SESSION["usuario"] )) {
 
                     <div class="col-md-4">
                         <div class="card">
+                            <a href="view-reportes.php">
                             <div class="header">
                                 <h4 class="title">Reportes</h4>
                                 <p class="category"><img src="../assets\img\result.png" align="right"></p>
@@ -182,6 +188,7 @@ if (isset($_SESSION["usuario"] )) {
                                 <hr>
                             </div>
                             </div>
+                        </a>
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -190,6 +197,24 @@ if (isset($_SESSION["usuario"] )) {
                             <div class="header">
                                 <h4 class="title">Configuracion periodos</h4>
                                 <p class="category"><img src="../assets\img\period.png" align="right"></p>
+                            </div>
+                            <div class="content">
+                              <br>
+                              <br>
+                              <br>
+                            <div class="footer">
+                                <hr>
+                            </div>
+                            </div>
+                           
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card">
+                            <a href="restauracion-notas.php">
+                            <div class="header">
+                                <h4 class="title">Plataforma</h4>
+                                <p class="category"><img src="../assets\img\tool.png" align="right"></p>
                             </div>
                             <div class="content">
                               <br>
