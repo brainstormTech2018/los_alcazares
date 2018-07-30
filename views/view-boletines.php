@@ -135,9 +135,9 @@ if (isset($_SESSION["usuario"] )) {
                 <div class="row">
                     <div class="col-md-4">
                         <div class="card">
-                             <a href="view-boletines.php">
+                             <a href="../control/reportes/boletin.php">
                             <div class="header">
-                                <h4 class="title">Boletín</h4>
+                                <h4 class="title">Por curso</h4>
                                 <p class="category"><img src="../assets\img\report.png" align="right"></p>
                             </div>
                             <div class="content">
@@ -155,7 +155,7 @@ if (isset($_SESSION["usuario"] )) {
                         <div class="card">
                              <a href="view-AsignacionDirectorGrupo.php">
                             <div class="header">
-                                <h4 class="title">Alumnos general</h4>
+                                <h4 class="title">Por alumno</h4>
                                 <p class="category"><img src="../assets\img\students.png" align="right"></p>
                             </div>
                             <div class="content">
@@ -186,9 +186,13 @@ if (isset($_SESSION["usuario"] )) {
                 </p>
             </div>
         </footer>
+
     </div>
 </div>
+
+
 </body>
+
     <!--   Core JS Files   -->
     <script src="../assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>
     <script src="../assets/js/bootstrap.min.js" type="text/javascript"></script>
@@ -210,7 +214,11 @@ if (isset($_SESSION["usuario"] )) {
 
     <script type="text/javascript">
         $(document).ready(function(){
-            demo.initChartist();     
+
+            demo.initChartist();
+
+            
+
         });
     </script>
 
