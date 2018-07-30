@@ -1,7 +1,7 @@
 <?php 
 include '../config/config.php';
 
-$curso = $_GET['curso'];
+$curso = $_POST['curso'];
 $activo = "Inactivo";
 $sql = "SELECT concat(estudiante_nombre,' ',estudiante_apellido)r, estudiante_activo, estudiante_documento FROM `tbl_estudiantes` WHERE curso_codigo =".$curso;
 

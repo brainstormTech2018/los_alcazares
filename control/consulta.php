@@ -5,7 +5,7 @@ $curso = $_GET['curso'];
 $alumno = $_GET['alumno'];
 
   $sql = "SELECT nota_personal,nota_academico,nota_soacial,nota_promedio,nota_semana, nota_observacion,concat(estudiante_nombre,' ',estudiante_apellido)q FROM `tbl_notas` INNER JOIN tbl_estudiantes on tbl_notas.estudiante_codigo = tbl_estudiantes.estudiante_documento where tbl_notas.docente_codigo = ' $docente' AND tbl_notas.curso_codigo = $curso AND tbl_estudiantes.estudiante_documento = $alumno";
-  $nombre = "SELECT concat(estudiante_nombre,' ',estudiante_apellido)q FROM tbl_estudiantes where estudiante_documento = $alumno";
+  $nombre = "SELECT concat(estudiante_nombre,' ',estudiante_apellido)q FROM tbl_estudiantes where estudiante_documento = $alumno ";
  	$resultado = $link->query($sql);
   $resul = $link->query($nombre);
 

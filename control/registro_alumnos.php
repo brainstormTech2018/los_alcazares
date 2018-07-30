@@ -60,7 +60,7 @@ switch ($accion) {
 										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
 											clear
 										</button>
-						                 <b>".$sql1."</b>
+						                 <b>Actualización exitosa</b>
 						            </div>
 						        </div>";
 				}
@@ -88,7 +88,7 @@ if(mysqli_num_rows($query) > 0){
 				if($query1 > 0){
 			$notificacion.="<div class='alert alert-success'>
 	            <div class='container-fluid'>
-					<b>¡Actualizacion exitoso!</b>
+					<b>".$sql1."</b>
 	            </div>
 	        </div>";
 		}

@@ -189,10 +189,7 @@ if (isset($_SESSION["usuario"] )) {
                                             </div>
                                         </div>
 
-                                        <div class="header">
-                                            <h4 class="title">Credenciales para ingreso</h4>
-                                        </div>
-                                        <br>
+                                       
                                         
                                         <div class="row">
                                             <div class="col-md-12">

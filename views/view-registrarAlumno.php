@@ -138,7 +138,7 @@ if (isset($_SESSION["usuario"] )) {
                             <div class="header">
                                 <h4 class="title">Registro alumno</h4>                                
                             </div>
-                            <div class="content">
+                            <div class="content" id="alumno">
                                 <form method="POST" id="client">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -198,8 +198,11 @@ if (isset($_SESSION["usuario"] )) {
                                                 <div class="form-group">
                                                     <label>Estado</label>
                                                     <br>
-                                                    <input type="radio" name="alu_activo" id="alu_activo" value="1"/>Activo<br/>
-                                                    <input type="radio" name="alu_activo" id="alu_activo" value="0"/>Inactivo</p>
+                                                      <select class="form-control" name="alu_activo" id="alu_activo" required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <option value="Si">Activo</option>
+                                                        <option value="No">Inactivo</option>
+                                                      </select>
                                                 </div>
                                             </div>
                                         </div>
@@ -229,9 +232,10 @@ if (isset($_SESSION["usuario"] )) {
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Alumno" onclick="listar(2);">Actualizar</a>
+                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Alumno" onclick="actualizar();">Buscar</a>
                                                 </div>
                                             </div>
+                                             
                                         </div>
                                         <div class="clearfix"></div>
                                     </form>
@@ -306,25 +310,47 @@ if (isset($_SESSION["usuario"] )) {
         var curso = $("#alu_curso").val();
 
 
-       $.ajax({   
+      $.ajax({   
        type: "POST",
        url:"../control/registro_alumnos.php",
        data:{"insertar":accion,"alu_documento":documento,"alu_nombre":nombre, "alu_apellido":apellido, "alu_direccion":direccion, "alu_telefono":telefono, "alu_correo":email, "alu_identificacion":identificacion,"alu_activo":activo, "alu_curso":curso},
        success: function(notify){       
-         $('#notify').html(notify); 
-         //alert(nombre);        
-       }
+     $('#notify').html(notify);
+         //alert(activo);        
+     }
        
      });}
    </script>
 
    <script type="text/javascript">
-    var limpiar = function() {
-     $("#client")[0].reset();
-     document.getElementById('notify').style.display = 'none';}
-}
+    var limpiar = function(){
+       
+       $.ajax({   
+       type: "POST",
+       url:"../control/formulario_alumno.php",
+       success: function(alumno){       
+         $('#alumno').html(alumno); 
+         //alert(nombre);        
+       }
+         });}
 
    </script>
 
+   <script type="text/javascript">  
+    var actualizar = function(){
+       
+        var documento = $("#alu_documento").val();
+        
 
+       $.ajax({   
+       type: "POST",
+       url:"../control/buscar-alumno.php",
+       data:{"alumno":documento},
+       success: function(alumno){       
+         $('#alumno').html(alumno); 
+         //alert(nombre);        
+       }
+       
+     });}
+   </script>
 </html>
