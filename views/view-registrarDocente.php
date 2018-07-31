@@ -144,7 +144,7 @@ if (isset($_SESSION["usuario"] )) {
                                 <h4 class="title">Registro docente</h4>
                                 
                             </div>
-                            <div class="content">
+                            <div class="content" id="docente">
                                 <form  method="POST" id="client">
                                         <div class="row">
                                             <div class="col-md-6">
@@ -192,12 +192,21 @@ if (isset($_SESSION["usuario"] )) {
                                        
                                         
                                         <div class="row">
-                                            <div class="col-md-12">
+                                             <div class="row">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
                                                     <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Docente" onclick="listar(1);">Registrar</a>
                                                 </div>
                                             </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Buscar Docente" onclick="actualizar();">Buscar</a>
+                                                </div>
+                                            </div>
+                                             
                                         </div>
+                                        </div>
+
                                         <div class="clearfix"></div>
                                     </form>
                             </div>
@@ -280,14 +289,37 @@ if (isset($_SESSION["usuario"] )) {
        }
        
      });}
-</script>
 
-   <script type="text/javascript">
-    var limpiar = function() {
-     $("#client")[0].reset();
-     
-}
+</script>
+ <script type="text/javascript">
+    var limpiar = function(){
+       
+       $.ajax({   
+       type: "POST",
+       url:"../control/formulario_docente.php",
+       success: function(docente){       
+         $('#docente').html(docente); 
+         //alert(nombre);        
+       }
+         });}
 
    </script>
 
+   <script type="text/javascript">  
+    var actualizar = function(){
+       
+        var documento = $("#do_documento").val();
+        
+
+       $.ajax({   
+       type: "POST",
+       url:"../control/buscar_docente.php",
+       data:{"docente":documento},
+       success: function(docente){       
+         $('#docente').html(docente); 
+         //alert(nombre);        
+       }
+       
+     });}
+   </script>
 </html>

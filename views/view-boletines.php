@@ -133,24 +133,7 @@ if (isset($_SESSION["usuario"] )) {
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="card">
-                             <a href="../control/reportes/boletin.php">
-                            <div class="header">
-                                <h4 class="title">Por curso</h4>
-                                <p class="category"><img src="../assets\img\report.png" align="right"></p>
-                            </div>
-                            <div class="content">
-                              <br>
-                              <br>
-                              <br>
-                            <div class="footer">
-                                <hr>
-                            </div>
-                            </div>
-                        </a>
-                        </div>
-                    </div>
+                    
                     <div class="col-md-4">
                         <div class="card">
                              <a data-toggle="modal" href="#porAlumno">
