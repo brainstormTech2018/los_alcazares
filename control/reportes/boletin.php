@@ -1,6 +1,51 @@
 <?php 
 require_once('../../libs/pdf/mpdf.php');
 
+    $DB_SERVER = 'localhost';
+    $DB_USERNAME ='root';
+    $DB_PASSWORD = '';
+    $DB_NAME ='colegio_alcazares';
+
+$link = mysqli_connect($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
+
+  $alumno = $_POST['alumno'];
+  $docente = $_POST['docente'];
+
+  $sql = "SELECT nota_academico, nota_personal, nota_soacial, nota_promedio,concat(estudiante_nombre,' ',estudiante_apellido) as nombre, tbl_estudiantes.curso_codigo as ciclo, tbl_cursos.docente_documento, concat(tbl_docentes.docente_nombre,' ',tbl_docentes.docente_apellido) as docente, tbl_notas.nota_observacion FROM tbl_notas INNER JOIN tbl_estudiantes on tbl_notas.estudiante_codigo = tbl_estudiantes.estudiante_documento INNER JOIN tbl_cursos on tbl_cursos.curso_codigo = tbl_estudiantes.curso_codigo INNER JOIN tbl_docentes on tbl_cursos.docente_documento = tbl_docentes.docente_documento where tbl_notas.docente_codigo = $docente and tbl_notas.estudiante_codigo = $alumno";
+  
+
+    $prepare = $link->prepare($sql);
+    $prepare->execute();
+    $resulSet = $prepare->get_result();
+    while($productos[] = $resulSet->fetch_array());
+    $resulSet->close();
+    $link->close();
+
+$promedioSocial = 0;
+$promedioPersonal = 0;
+$promedioAcademico = 0;
+for ($i=0; $i < 7; $i++) { 
+  $promedioSocial = $promedioSocial + $productos[$i][2];
+  $promedioPersonal = $promedioPersonal + $productos[$i][1];
+  $promedioAcademico = $promedioAcademico + $productos[$i][0];
+
+}
+
+$promSocial = round(($promedioSocial / 7),PHP_ROUND_HALF_UP);
+$promPersonal = round(($promedioPersonal / 7),PHP_ROUND_HALF_UP);
+ $promAcademico = round(($promedioAcademico / 7),PHP_ROUND_HALF_UP);
+
+
+$promGral = round((($promPersonal + $promSocial + $promAcademico)/3),PHP_ROUND_HALF_UP);
+ 
+ $sqlMateria = "SELECT tbl_materias.materia_nombre FROM tbl_asignacion INNER JOIN tbl_docentes ON tbl_asignacion.docente_documento = tbl_docentes.docente_documento INNER JOIN tbl_materias on tbl_materias.materia_codigo = tbl_asignacion.materia_codigo where tbl_asignacion.curso_codigo = ".$productos[0][5]." and tbl_asignacion.docente_documento = $docente";
+$link2 = mysqli_connect($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
+$prepare2 = $link2->prepare($sqlMateria);
+    $prepare2->execute();
+    $resulSet2 = $prepare2->get_result();
+    while($materia[] = $resulSet2->fetch_array());
+    $resulSet2->close();
+    $link2->close();
 $html = '<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -24,14 +69,14 @@ $html = '<!DOCTYPE html>
       <div id="details" class="clearfix">
         <div id="client">
           <div class="to">Area:</div>
-          <h2 class="name">CALCULO</h2>
+          <h2 class="name">'.$materia[0][0].'</h2>
           <div class="address"></div>
-          <div class="email"><a href="">Ciclo: 6,2</a></div>
+          <div class="email"><a href="">Ciclo: '.$productos[0][5].'</a></div>
         </div>
         <div id="invoice">
            <div class="email"><strong style="color: black;">Estudiante:</strong>
-          Sebastian Peña Perafan</div>
-          <div class="date"><strong style="color: black;">Tutor:</strong> Maria Fernanda Campo Dorado</div>
+          '.$productos[0][4].'</div>
+          <div class="date"><strong style="color: black;">Tutor:</strong> '.$productos[0][7].'</div>
         </div>
       </div>
       <table border="0" cellspacing="0" cellpadding="0">
@@ -51,65 +96,96 @@ $html = '<!DOCTYPE html>
         <tbody>
           <tr>
             <th class="no">Académico</th>
-            <td class="desc">1</th>
-            <td class="unit">2</th>
-            <td class="desc">3</th>
-            <td class="unit">4</th>
-            <td class="desc">5</th>
-            <td class="unit">6</th>
-            <td class="desc">7</th>
-            <td class="unit">8 <strong style="color:red;">BAJO</strong></th>
+            <td class="desc">'.$productos[0][0].'</th>
+            <td class="unit">'.$productos[1][0].'</th>
+            <td class="desc">'.$productos[2][0].'</th>
+            <td class="unit">'.$productos[3][0].'</th>
+            <td class="desc">'.$productos[4][0].'</th>
+            <td class="unit">'.$productos[5][0].'</th>
+            <td class="desc">'.$productos[6][0].'</th>
+            <td class="unit">'.$promAcademico.'<strong style="color:red;">';
+            if($promAcademico <= 2.9){
+              $html.=" BAJO";
+            }else if($promAcademico >= 3.0 && $promAcademico <= 3.9 ){
+              $html.=" BÁSICO";
+            }else if($promAcademico >= 4.0 && $promAcademico <= 4.5){
+              $html.=" ALTO";
+            }else if($promAcademico >= 4.6 && $promAcademico <= 5.0){
+              $html.=" SUPERIOR";
+            }
+            $html.='</strong></th>
           </tr>
           <tr>
             <th class="no">Personal</th>
-            <td class="desc">1</th>
-            <td class="unit">2</th>
-            <td class="desc">3</th>
-            <td class="unit">4</th>
-            <td class="desc">5</th>
-            <td class="unit">6</th>
-            <td class="desc">7</th>
-              <td class="unit">8 <strong style="color:red;">BAJO</strong></th>
+            <td class="desc">'.$productos[0][1].'</th>
+            <td class="unit">'.$productos[1][1].'</th>
+            <td class="desc">'.$productos[2][1].'</th>
+            <td class="unit">'.$productos[3][1].'</th>
+            <td class="desc">'.$productos[4][1].'</th>
+            <td class="unit">'.$productos[5][1].'</th>
+            <td class="desc">'.$productos[6][1].'</th>
+            <td class="unit">'.$promPersonal.'<strong style="color:red;">';
+if($promPersonal <= 2.9){
+              $html.=" BAJO";
+            }else if($promPersonal >= 3.0 && $promPersonal <= 3.9 ){
+              $html.=" BÁSICO";
+            }else if($promPersonal >= 4.0 && $promPersonal <= 4.5){
+              $html.=" ALTO";
+            }else if($promPersonal >= 4.6 && $promPersonal <= 5.0){
+              $html.=" SUPERIOR";
+            }
+            $html.='</strong></th>
           </tr>
           <tr>
             <th class="no">Social</th>
-            <td class="desc">1</th>
-            <td class="unit">2</th>
-            <td class="desc">3</th>
-            <td class="unit">4</th>
-            <td class="desc">5</th>
-            <td class="unit">6</th>
-            <td class="desc">7</th>
-            <td class="unit">8 <strong style="color:red;">BAJO</strong></th>
+            <td class="desc">'.$productos[0][2].'</th>
+            <td class="unit">'.$productos[1][2].'</th>
+            <td class="desc">'.$productos[2][2].'</th>
+            <td class="unit">'.$productos[3][2].'</th>
+            <td class="desc">'.$productos[4][2].'</th>
+            <td class="unit">'.$productos[5][2].'</th>
+            <td class="desc">'.$productos[6][2].'</th>
+            <td class="unit">'.$promSocial.'<strong style="color:red;">';
+            if($promSocial <= 2.9){
+              $html.=" BAJO";
+            }else if($promSocial >= 3.0 && $promSocial <= 3.9 ){
+              $html.=" BÁSICO";
+            }else if($promSocial >= 4.0 && $promSocial <= 4.5){
+              $html.=" ALTO";
+            }else if($promSocial >= 4.6 && $promSocial <= 5.0){
+              $html.=" SUPERIOR";
+            }
+
+            $html.='</strong></th>
           </tr>
           <tr>
             <th class="no">Promedio</th>
-            <td class="desc">1</th>
-            <td class="unit">2</th>
-            <td class="desc">3</th>
-            <td class="unit">4</th>
-            <td class="desc">5</th>
-            <td class="unit">6</th>
-            <td class="desc">7</th>
-            <td class="unit">8 <strong style="color:red;">BAJO</strong></th>
+            <td class="desc">'.$productos[0][3].'</th>
+            <td class="unit">'.$productos[1][3].'</th>
+            <td class="desc">'.$productos[2][3].'</th>
+            <td class="unit">'.$productos[3][3].'</th>
+            <td class="desc">'.$productos[4][3].'</th>
+            <td class="unit">'.$productos[5][3].'</th>
+            <td class="desc">'.$productos[6][3].'</th>
+            <td class="unit"><strong>'.$promGral.'<strong><strong style="color:red;">';
+            if($promGral <= 2.9){
+              $html.=" BAJO";
+            }else if($promGral >= 3.0 && $promGral <= 3.9 ){
+              $html.=" BÁSICO";
+            }else if($promGral >= 4.0 && $promGral <= 4.5){
+              $html.=" ALTO";
+            }else if($promGral >= 4.6 && $promGral <= 5.0){
+              $html.=" SUPERIOR";
+            }
+            $html.='</strong></th></th>
           </tr>
-          <tr>
-            <th class="no">Inasistencia</th>
-            <td class="desc">1</th>
-            <td class="unit">2</th>
-            <td class="desc">3</th>
-            <td class="unit">4</th>
-            <td class="desc">5</th>
-            <td class="unit">6</th>
-            <td class="desc">7</th>
-            <td class="unit">8 <strong style="color:red;">BAJO</strong></th>
-          </tr>
+         
         </tbody>
          </table>
       <table border="0" cellspacing="0" cellpadding="0">
           <tr>
             <th class="no">Observaciones</th>
-            <td class="desc">El estudiante presenta una inasistencia constantes, esto se ve reflejado en su rendimiento académico, se solicita l presencia de los padres de familia y/o acudientes lo mas pronto posible.</th>
+            <td class="desc">'.$productos[0][10].'</th>
           </tr>      
      </table>
 
@@ -147,6 +223,7 @@ $css = file_get_contents("style.css");
 $mpdf->writeHTML($css,1);
     $mpdf->writeHTML($html);
     $mpdf->Output('boletin'.$documento.'.pdf', 'I'); 
+
 
 
 

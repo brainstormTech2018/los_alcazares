@@ -153,7 +153,7 @@ if (isset($_SESSION["usuario"] )) {
                     </div>
                     <div class="col-md-4">
                         <div class="card">
-                             <a href="view-AsignacionDirectorGrupo.php">
+                             <a data-toggle="modal" href="#porAlumno">
                             <div class="header">
                                 <h4 class="title">Por alumno</h4>
                                 <p class="category"><img src="../assets\img\students.png" align="right"></p>
@@ -171,8 +171,7 @@ if (isset($_SESSION["usuario"] )) {
                     </div>
                 </div>
             </div>
-        </div>
-
+         </div>
 
         <footer class="footer">
             <div class="container-fluid">
@@ -189,6 +188,75 @@ if (isset($_SESSION["usuario"] )) {
 
     </div>
 </div>
+<!-- Modal -->
+            <div class="modal fade" id="porAlumno" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-profile">
+                                <i class="nc-icon nc-paper-2"></i>                                     
+                            </div>
+                            <h6 class="modal-title">Boletín por alumno</h6>
+                        </div>
+                        <div class="modal-body text-center">
+                            <form action="../control/reportes/boletin.php" method="POST" target="_blank">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Alumno</label>
+                                                    <select class="form-control" name="alumno" id="alumno" required>
+                                            <option value="" disabled selected>Elige una opción</option>
+                                            <?php 
+                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
+
+                                                if ($link === false) {
+                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                }   
+                                                $sql = 'SELECT estudiante_documento, concat(estudiante_nombre," ",estudiante_apellido," - ",curso_codigo)q FROM tbl_estudiantes';
+                                                $query = mysqli_query($link, $sql);
+            
+                                                while ($valores = mysqli_fetch_array($query)) {                            
+                                                    echo '<option value="'.$valores[estudiante_documento].'">'.$valores[q].'</option>';
+                                                    
+                                                }
+                                            ?>
+                                        </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Docente</label>
+                                                    <select class="form-control" name="docente" id="docente" required>
+                                            <option value="" disabled selected>Elige una opción</option>
+                                            <?php 
+                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
+
+                                                if ($link === false) {
+                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
+                                                }   
+                                                $sql = 'SELECT docente_documento, concat(docente_nombre," ",docente_apellido)q, materia_nombre FROM tbl_docentes INNER JOIN tbl_materias on tbl_materias.docente_codigo = tbl_docentes.docente_documento';
+                                                $query = mysqli_query($link, $sql);
+            
+                                                while ($valores = mysqli_fetch_array($query)) {                            
+                                                    echo '<option value="'.$valores['docente_documento'].'">'.$valores['q'].' - '.$valores['materia_nombre'].'</option>';
+                                                    
+                                                }
+                                            ?>
+                                        </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link btn-simple" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-link btn-simple text-info" data-toggle="tooltip" data-placement="left" title="Generar reporte">Generar</button>
+                                </div>                          
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  End Modal -->
 
 
 </body>
@@ -214,13 +282,23 @@ if (isset($_SESSION["usuario"] )) {
 
     <script type="text/javascript">
         $(document).ready(function(){
-
-            demo.initChartist();
-
-            
-
+            demo.initChartist();      
         });
     </script>
+
+    <script type="text/javascript">  
+    var listar = function(accion){
+        var alumno = $("#alumno").val();
+        var docente = $("#docente").val();      
+      $.ajax({   
+       type: "POST",
+       url:"../control/reportes/boletin.php",
+       data:{"accion":accion,"alumno":alumno, "docente":docente}      
+    });
+
+alert(docente);
+    }
+   </script>
 
     
 

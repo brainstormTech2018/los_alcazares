@@ -155,7 +155,7 @@ if (isset($_SESSION["usuario"] )) {
                                           <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Docente</label>
+                                                    <label>Alumno</label>
                                                     <select class="form-control" name="alumno" id="alumno" required>
                                             <option value="" disabled selected>Elige una opción</option>
                                             <?php 

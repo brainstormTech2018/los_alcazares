@@ -172,7 +172,7 @@ $objPHPExcel->setActiveSheetIndex(0);
 
 // Se manda el archivo al navegador web, con el nombre que se indica, en formato 2007
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header('Content-Disposition: attachment;filename="Reportedealumnos.xlsx"');
+header('Content-Disposition: attachment;filename="'.$fila['q'].'.xlsx"');
 header('Cache-Control: max-age=0');
  
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
