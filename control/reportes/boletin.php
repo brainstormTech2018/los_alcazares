@@ -21,13 +21,17 @@ $link = mysqli_connect($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_NAME);
     $resulSet->close();
     $link->close();
 
+    if($productos[0][0] != ""){
+
 $promedioSocial = 0;
 $promedioPersonal = 0;
 $promedioAcademico = 0;
+$observaciones = "";
 for ($i=0; $i < 7; $i++) { 
   $promedioSocial = $promedioSocial + $productos[$i][2];
   $promedioPersonal = $promedioPersonal + $productos[$i][1];
   $promedioAcademico = $promedioAcademico + $productos[$i][0];
+  $observaciones.= " - <br>".$productos[$i][8];
 
 }
 
@@ -185,7 +189,7 @@ if($promPersonal <= 2.9){
       <table border="0" cellspacing="0" cellpadding="0">
           <tr>
             <th class="no">Observaciones</th>
-            <td class="desc">'.$productos[0][10].'</th>
+            <td class="desc">'.$observaciones.'</th>
           </tr>      
      </table>
 
@@ -217,6 +221,9 @@ if($promPersonal <= 2.9){
     
   </body>
 </html>';
+}else{
+  $html = "<h1>NO SE REGISTRA BOLETIN</h1>";
+}
 $mpdf = new mPDF('c','A5');
 $css = file_get_contents("style.css");
 

@@ -88,7 +88,7 @@ if(mysqli_num_rows($query) > 0){
 				if($query1 > 0){
 			$notificacion.="<div class='alert alert-success'>
 	            <div class='container-fluid'>
-					<b>".$sql1."</b>
+					<b>ACTUALIZACIÓN EXITOSA</b>
 	            </div>
 	        </div>";
 		}

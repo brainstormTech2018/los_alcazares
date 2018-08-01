@@ -50,7 +50,7 @@ $html.= '</tbody>
      </div>';
 
   $link->close();     
-    $resultado->free();
+
 echo $html;
 
 
