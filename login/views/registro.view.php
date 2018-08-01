@@ -27,7 +27,7 @@
             <div class="sidebar-wrapper">
                 <div class="logo" title="Inicio Nacolor">
                     <a href="<?php echo RUTA.'./login/control/admin.php'; ?>" class="simple-text">
-                        Nacolor
+                        Los Alcazares
                     </a>
                 </div>
                 <ul class="nav">

@@ -277,7 +277,7 @@ if (isset($_SESSION["usuario"] )) {
     var listar = function(curso, director){
        $.ajax({   
        type: "POST",
-       url:"../control/consulta-detalleCurso.php",
+       url:"../control/consulta-detalleCursoAdmin.php",
        data:{"curso":curso},
        success: function(mytable){       
          $('#mytable').html(mytable);

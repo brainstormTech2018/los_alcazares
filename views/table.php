@@ -276,7 +276,7 @@ echo "</div>
 foreach($_DATOS_EXCEL as $campo => $valor){
                       $sql = "INSERT INTO tbl_notas  (nota_semana,estudiante_codigo,nota_academico,nota_personal,nota_soacial,nota_promedio,curso_codigo,nota_observacion,activo,docente_codigo)  VALUES ('";
                         foreach ($valor as $campo2 => $valor2){
-                            $campo2 == "activo" ? $sql.= $valor2."',' ".$_SESSION['docente']."');" : $sql.= $valor2."','";
+                            $campo2 == "activo" ? $sql.= $valor2."','".$_SESSION['docente']."');" : $sql.= $valor2."','";
                         }
 
                         $result = mysql_query($sql);
@@ -369,16 +369,13 @@ echo "</div>
             $("#mytable").html(mytable);
             });      
         }
-
-
-
        
 </script>
 <script>
 
         var verificar = function(alumno){
             var curso = <?php echo $curso ?>;
-        var docente = <?php echo $docente ?>;
+            var docente = <?php echo $docente ?>;
              $.get("../control/consulta.php?curso="+curso+"&docente="+docente+"&alumno="+alumno)
             .done(function(cardTabla){
             $("#cardTabla").html(cardTabla);

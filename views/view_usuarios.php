@@ -173,7 +173,7 @@ if (isset($_SESSION["usuario"] )) {
                                          <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <input type="submit" name="registra" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Docente" onclick="listar(1);">Registrar/>
+                                                    <input type="submit" name="registra" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Docente" onclick="listar(1);">
                                                 </div>
                                             </div>
                                               <div class="col-md-6">

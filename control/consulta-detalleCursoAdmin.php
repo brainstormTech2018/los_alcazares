@@ -2,7 +2,7 @@
 include '../config/config.php';
 
 
-    $curso = $_GET['curso'];
+    $curso = $_POST['curso'];
 
 
 
