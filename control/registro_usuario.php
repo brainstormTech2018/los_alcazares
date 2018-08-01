@@ -7,12 +7,12 @@ include ('../config/config.php');
     $notificacion = "";
 
 switch ($accion) {
-	case 1://Registrar docentes
+	case 1:
 		$usuario = $_POST['user'];
 		$contrasena = $_POST['pass'];
 		$tipo = $_POST['tipo'];
 		$documento = $_POST['documento'];
-
+		$pass_cifrado=hash('sha512', $contrasena) ;
 	  $sql = "SELECT usuario, tipo_usuario FROM usuario WHERE id_docente = '$documento'";
 	  
 		$query = mysqli_query($link, $sql);
@@ -26,7 +26,7 @@ switch ($accion) {
 				
 		    }
 		}else{
-			$sql1 = "INSERT INTO usuario(usuario,contrasena,tipo_usuario,id_docente) VALUES ('$usuario','$contrasena','$tipo','$documento')";
+			$sql1 = "INSERT INTO usuario(usuario,contrasena,tipo_usuario,id_docente) VALUES ('$usuario','$pass_cifrado','$tipo','$documento')";
 			
 		$query1 = mysqli_query($link, $sql1);
 				if($query1 > 0){

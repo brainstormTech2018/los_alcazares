@@ -4,12 +4,14 @@
 	require '../admin/config.php';
 	require './functions.php';
 
+
 	$errores = '';
 
 	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		$usuario = $_POST['usuario'];
 		$password = $_POST['password'];
-	//		$password = hash('sha512', $password);
+		$password=hash('sha512', $password) ;
+
 
 		$conexion = conexion($db_config);
 		$statement = $conexion->prepare('SELECT * FROM usuario WHERE usuario = :usuario AND contrasena = :password');
