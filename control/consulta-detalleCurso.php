@@ -23,7 +23,7 @@ $tablaHtml = '<table class="table table-hover table-striped">
                                     <tbody>';
 while($rows = $resultado->fetch_assoc()){
 
-	if($rows['estudiante_activo'] == 1){
+	if($rows['estudiante_activo'] == 'Si'){
 		$activo = "Activo";
 	}
  $tablaHtml.='<tr>     

@@ -77,7 +77,12 @@ if (isset($_SESSION["usuario"] )) {
                         <p>Administrativo</p>
                     </a>
                 </li>
-               
+               <li>
+                    <a href="view-planeacion.php">
+                        <i class="pe-7s-date"></i>
+                        <p>Planeación</p>
+                    </a>
+                </li>     
                    
             </ul>
         </div>

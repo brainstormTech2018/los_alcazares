@@ -68,7 +68,7 @@ if (isset($_SESSION["usuario"] )) {
             </div>
 
             <ul class="nav">
-                <li>
+               <li>
                     <?php 
                         if(isset($_SESSION['userType'])){
                             if($_SESSION['userType'] == 'docente'){
@@ -78,7 +78,7 @@ if (isset($_SESSION["usuario"] )) {
                             }
                         }
                      ?>
-                        <i class="pe-7s-graph"></i>
+                       <i class="pe-7s-culture"></i>
                         <p>Administrativo</p>
                     </a>
                 </li>
@@ -88,7 +88,12 @@ if (isset($_SESSION["usuario"] )) {
                         <p>Docente</p>
                     </a>
                 </li>
-                   
+                <li>
+                    <a href="view-planeacion.php">
+                        <i class="pe-7s-date"></i>
+                        <p>Planeación</p>
+                    </a>
+                </li>                   
             </ul>
         </div>
     </div>

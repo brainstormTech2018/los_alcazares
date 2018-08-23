@@ -68,27 +68,33 @@ $docente = $_SESSION['docente'];
 
             
             <ul class="nav">
-                <li>
+                <li class="active">
+                    <a href="index.php">
+                       <i class="pe-7s-culture"></i>
+                        <p>Administrativo</p>
+                    </a>
+                </li>
+               <li>
                     <?php 
                         if(isset($_SESSION['userType'])){
-                            if($_SESSION['userType'] == 'docente'){
+                            if($_SESSION['userType'] == 'administrativo'){
                                 echo '<a href="#">';
                             }else{
                                 echo '<a href="index.php">';
                             }
                         }
                      ?>
+                    
                         <i class="pe-7s-graph"></i>
-                        <p>Administrativo</p>
-                    </a>
-                </li>
-                <li class="active">
-                    <a href="user.php">
-                        <i class="pe-7s-user"></i>
                         <p>Docente</p>
                     </a>
                 </li>
-                   
+                <li>
+                    <a href="view-planeacion.php">
+                        <i class="pe-7s-date"></i>
+                        <p>Planeación</p>
+                    </a>
+                </li>                   
             </ul>
     	</div>
     </div>

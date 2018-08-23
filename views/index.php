@@ -81,6 +81,12 @@ if (isset($_SESSION["usuario"] )) {
                         <i class="pe-7s-graph"></i>
                         <p>Docente</p>
                     </a>
+                </li>
+                <li>
+                    <a href="view-planeacion.php">
+                        <i class="pe-7s-date"></i>
+                        <p>Planeación</p>
+                    </a>
                 </li>                   
             </ul>
     	</div>
@@ -112,7 +118,43 @@ if (isset($_SESSION["usuario"] )) {
                            
                         </li>
                         <li class="dropdown">
-                              
+                              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span style="font-size: 20px; color: black;"><ion-icon name="notifications"></ion-icon></span>
+                                    <b class="caret hidden-sm hidden-xs"></b>
+                                        <?php 
+                                        // eventos para el día
+                                        date_default_timezone_set('UTC');
+
+                                        date_default_timezone_set("America/Mexico_City");
+                                        $fecha_actual = date("Y-m-d");
+                                            include ('../config/config.php');
+
+                                            $sqlP = "SELECT COUNT(id) as n FROM tbl_planeacion WHERE planeacion_fecha = '$fecha_actual'";
+                                             $resultadoP = $link->query($sqlP);
+                                             while ($rows = $resultadoP->fetch_assoc()){
+                                                $pendientes = $rows['n'];
+                                             }
+                                             if($pendientes > 0){
+                                                echo '<span class="notification hidden-sm hidden-xs">'.$pendientes.'</span>
+                                    <p class="hidden-lg hidden-md">
+                                        <b class="caret"></b>
+                                    </p>';
+                                             }
+                                         ?>
+
+                                    
+                              </a>
+                              <ul class="dropdown-menu">
+
+                                <?php 
+                                    $actividades = "SELECT planeacion_plan, id FROM tbl_planeacion WHERE planeacion_fecha = '$fecha_actual'";
+                                   $resultadoPl = $link->query($actividades);
+                                    while ($rowsP = $resultadoPl->fetch_assoc()){
+                                                echo '<li><a href="vista_notificacion.php?not='.$rowsP['id'].'" >'.$rowsP['planeacion_plan'].'</a></li>';
+                                             }
+                                      ?>
+                            
+                              </ul>
                         </li>
                         <li>
                             <a href="../login/control/close.php" class="dropdown-item text-danger">
@@ -296,7 +338,7 @@ if (isset($_SESSION["usuario"] )) {
 
     <!--  Notifications Plugin    -->
     <script src="../assets/js/bootstrap-notify.js"></script>
-
+  <script src="https://unpkg.com/ionicons@4.2.4/dist/ionicons.js"></script>
     <!--  Google Maps Plugin    -->
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
 

@@ -41,8 +41,6 @@ if (isset($_SESSION["usuario"] )) {
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
     <link href="../assets/css/pe-icon-7-stroke.css" rel="stylesheet" />
 
-
-
 </head>
 <body>
 
@@ -64,8 +62,16 @@ if (isset($_SESSION["usuario"] )) {
             </div>
 
             <ul class="nav">
-                <li class="active">
-                    <a href="index.php">
+                <li>
+                   <?php 
+                        if(isset($_SESSION['userType'])){
+                            if($_SESSION['userType'] == 'docente'){
+                                echo '<a href="#">';
+                            }else{
+                                echo '<a href="index.php">';
+                            }
+                        }
+                     ?>
                         <i class="pe-7s-culture"></i>
                         <p>Administrativo</p>
                     </a>
@@ -76,7 +82,7 @@ if (isset($_SESSION["usuario"] )) {
                             if($_SESSION['userType'] == 'administrativo'){
                                 echo '<a href="#">';
                             }else{
-                                echo '<a href="index.php">';
+                                echo '<a href="user.php">';
                             }
                         }
                      ?>
@@ -84,30 +90,33 @@ if (isset($_SESSION["usuario"] )) {
                         <i class="pe-7s-graph"></i>
                         <p>Docente</p>
                     </a>
-                </li> 
-                <li>
+                </li>    
+                <li class="active">
                     <a href="view-planeacion.php">
                         <i class="pe-7s-date"></i>
                         <p>Planeación</p>
                     </a>
-                </li>                       
+                </li>                    
             </ul>
         </div>
     </div>
 
     <div class="main-panel">
+        
         <div id="notify" >
         </div>
+      
         <nav class="navbar navbar-default navbar-fixed">
             <div class="container-fluid">
                 <div class="navbar-header">
+                    
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-left">
                         <li>
-                            <a href="view-Acciones.php" class="dropdown-toggle" >
+                            <a href="index.php" class="dropdown-toggle" >
                               
-                                <p>Menú Acciones</p>
+                                <p>Menú</p>
                             </a>
                         </li>
                         <li class="dropdown">
@@ -141,64 +150,62 @@ if (isset($_SESSION["usuario"] )) {
                     <div class="col-md-12">
                         <div class="card">
                             <div class="header">
-                                <h4 class="title">Asignación director de grupo</h4>                                
+                                <h4 class="title">Registro actividades</h4>                                
                             </div>
-                            <div class="content">
-                                <form>
+                            <div class="content" id="alumno">
+                                <form method="POST" id="client">
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Docente</label>
-                                                    <select class="form-control" name="docenteDocumento" id="docenteDocumento" required>
-                                            <option value="" disabled selected>Elige una opción</option>
-                                            <?php 
-                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
-
-                                                if ($link === false) {
-                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
-                                                }   
-                                                $sql = 'SELECT concat(docente_nombre," ",docente_apellido)r, docente_documento FROM tbl_docentes';
-                                                $query = mysqli_query($link, $sql);
-            
-                                                while ($valores = mysqli_fetch_array($query)) {                            
-                                                    echo '<option value="'.$valores[docente_documento].'">'.$valores[r].'</option>';
-                                                    
-                                                }
-                                            ?>
-                                        </select>
-
+                                                    <label>Actividad</label>
+                                                    <input type="text" class="form-control" placeholder="Nombre de la actividad" name="pla_nombre" id="pla_nombre" required />
                                                 </div>
                                             </div>
-                                         </div>
-                                        <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label>Curso</label>
-                                                      <select class="form-control" name="cursoCod" id="cursoCod"required>
-                                            <option value="" disabled selected>Elige una opción</option>
-                                            <?php 
-                                                $link = mysqli_connect('localhost', 'root', '', 'colegio_alcazares');
-
-                                                if ($link === false) {
-                                                    die("ERROR: Could not connect. " . mysqli_connect_error());
-                                                }   
-                                                $sql = 'SELECT curso_id, curso_nombre FROM tbl_cursos';
-                                                $query = mysqli_query($link, $sql);
-            
-                                                while ($valores = mysqli_fetch_array($query)) {                            
-                                                    echo '<option value="'.$valores[curso_id].'">'.$valores[curso_nombre].'</option>';
-                                                    
-                                                }
-                                            ?>
-                                        </select>
+                                                    <label>Descripcion</label>
+                                                    <input type="text" class="form-control" placeholder="Breve descripción de la actividad" name="pla_desc" id="pla_desc" required />
                                                 </div>
                                             </div>
                                         </div>
-                                                                                
                                         <div class="row">
-                                            <div class="col-md-12">
+                                            <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <a type="submit" class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" name="insertar" value="1" title="Guardar Alumno" onclick="listar(1);">Registrar</a>
+                                                    <label>Encargado</label>
+                                                <input type="text" class="form-control" placeholder="Personal encargado" name="pla_encargado" id="pla_encargado" required />
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Fecha</label>
+                                                    <input type="text" class="form-control" placeholder="AAAA-mm-dd" name="pla_fecha" id="pla_fecha" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Hora</label>
+                                                    <input type="text" class="form-control" placeholder="Hora de inicio" name="pla_hora" id="pla_hora" required />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label>Lugar</label>
+                                                    <input type="text" class="form-control" placeholder="Lugar de desarrollo" name="pla_lugar" id="pla_lugar" required />
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                            
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                               
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <a class="btn btn-info btn-fill pull-right" data-toggle="tooltip" data-placement="left" title="Guardar Actividad" onclick="listar(1);">Registrar</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -222,17 +229,7 @@ if (isset($_SESSION["usuario"] )) {
                 </p>
             </div>
         </footer>
-        </div>
-        <!-- Sart Modal -->
-                <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                     <div class="modal-dialog modal-sm">
-                            <div  id="notifyModal">
-
-                           </div>
-                  </div>
-                </div>
-<!--  End Modal -->
-    
+    </div>
 </div>
 
 
@@ -254,33 +251,48 @@ if (isset($_SESSION["usuario"] )) {
     <!-- Light Bootstrap Table Core javascript and methods for Demo purpose -->
     <script src="../assets/js/light-bootstrap-dashboard.js?v=1.4.0"></script>
 
-<script src="assets/js/bootstrap-datepicker.js" type="text/javascript"></script>
     <!-- Light Bootstrap Table DEMO methods, don't include it in your project! -->
     <script src="../assets/js/demo.js"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
     $('[data-toggle="tooltip"]').tooltip();
 
     $(document).ready(function () {
-        
-
-     });
+        $('#mostrarPass').click(function () {
+            if ($('#password').attr('type') === 'text') {
+                $('#password').attr('type', 'password');
+                $('#mostrarPass').attr('class', 'fa fa-eye');                
+            } else {
+                $('#password').attr('type', 'text');
+                $('#mostrarPass').attr('class', 'fa fa-eye-slash');
+            }
+        });
+    });
 </script>
 <script type="text/javascript">  
     var listar = function(accion){
-        var curso = $("#cursoCod").val();
-        var docente = $("#docenteDocumento").val();
+        var nombre = $("#pla_nombre").val();
+        var descripcion = $("#pla_desc").val();
+        var encargado = $("#pla_encargado").val();
+        var fecha = $("#pla_fecha").val();
+        var hora = $("#pla_hora").val();
+        var lugar = $("#pla_lugar").val();
 
        $.ajax({   
        type: "POST",
-       url:"../control/asignacion_director.php",
-       data:{"insertar":accion,"curso":curso,"docente":docente},
-       success: function(notifyModal){       
-         $('#notifyModal').html(notifyModal); 
-         $('#myModal').modal('show');        
+       url:"../control/registro_planeacion.php",
+       data:{"insertar":accion,"pla_nombre":nombre,"pla_desc":descripcion, "pla_encargado":encargado, "pla_fecha":fecha, "pla_hora":hora, "pla_lugar":lugar},
+       success: function(notify){       
+         $('#notify').html(notify); 
+              
        }
        
-     });}
+     });
+
+
+}
+
 </script>
 
+   
 </html>

@@ -1,0 +1,32 @@
+@font-face
+{
+   font-family: "English_towne";
+   src: url("../fonts/EnglishTowne.ttf");
+   
+}
+
+.titulo{
+	font-family: "English_towne";
+	font-size: 60px;
+}
+
+#padre {
+   border-radius: 4px;
+  height: 100px;
+  position: relative;
+  
+}
+
+#uno {
+  
+  border-radius: 4px;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  height: 70px;
+  width: 70px;
+  opacity: 0.9;
+}

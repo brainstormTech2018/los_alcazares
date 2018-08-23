@@ -63,7 +63,7 @@ if (isset($_SESSION["usuario"] )) {
             <ul class="nav">
                 <li class="active">
                     <a href="index.php">
-                        <i class="pe-7s-culture"></i>
+                       <i class="pe-7s-culture"></i>
                         <p>Administrativo</p>
                     </a>
                 </li>
@@ -80,6 +80,12 @@ if (isset($_SESSION["usuario"] )) {
                     
                         <i class="pe-7s-graph"></i>
                         <p>Docente</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="view-planeacion.php">
+                        <i class="pe-7s-date"></i>
+                        <p>Planeación</p>
                     </a>
                 </li>                   
             </ul>

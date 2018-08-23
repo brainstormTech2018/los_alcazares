@@ -81,7 +81,13 @@ if (isset($_SESSION["usuario"] )) {
                         <i class="pe-7s-graph"></i>
                         <p>Docente</p>
                     </a>
-                </li>                   
+                </li>       
+                <li>
+                    <a href="view-planeacion.php">
+                        <i class="pe-7s-date"></i>
+                        <p>Planeación</p>
+                    </a>
+                </li>                 
             </ul>
         </div>
     </div>
@@ -151,9 +157,9 @@ if (isset($_SESSION["usuario"] )) {
                         </a>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <!--<div class="col-md-4">
                         <div class="card">
-                             <a href="view-AsignacionDirectorGrupo.php">
+                             <a data-toggle="modal" href="#porAlumno">
                             <div class="header">
                                 <h4 class="title">Alumnos general</h4>
                                 <p class="category"><img src="../assets\img\students.png" align="right"></p>
@@ -168,7 +174,7 @@ if (isset($_SESSION["usuario"] )) {
                             </div>
                         </a>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
             </div>
         </div>
@@ -188,6 +194,41 @@ if (isset($_SESSION["usuario"] )) {
         </footer>
     </div>
 </div>
+<!-- Modal -->
+            <div class="modal fade" id="porAlumno" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <div class="modal-profile">
+                                <i class="nc-icon nc-paper-2"></i>                                     
+                            </div>
+                            <h6 class="modal-title">Reporte general de alumnos</h6>
+                        </div>
+                        <div class="modal-body text-center">
+                            <form action="../control/reportes/general_alumnos.php" method="POST" target="_blank">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Estado:</label>
+                                                    <select class="form-control" name="alumno" id="alumno" required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <option value="Si" >Activos</option>
+                                                        <option value="No" >Inactivos</option>
+                                                    </select>
+                                        </div>
+                                    </div>                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-link btn-simple" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-link btn-simple text-info" data-toggle="tooltip" data-placement="left" title="Generar reporte">Generar</button>
+                                </div>                          
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--  End Modal -->
+
 </body>
     <!--   Core JS Files   -->
     <script src="../assets/js/jquery.3.2.1.min.js" type="text/javascript"></script>

@@ -11,7 +11,7 @@
 		$usuario = $_POST['usuario'];
 		$password = $_POST['password'];
 		$password=hash('sha512', $password) ;
-
+	
 
 		$conexion = conexion($db_config);
 		$statement = $conexion->prepare('SELECT * FROM usuario WHERE usuario = :usuario AND contrasena = :password');
@@ -26,8 +26,10 @@
 			
 			header('Location: '.RUTA.'./login/control/validate.php');
 	  	} else {
-	    	echo '<li class="error">Tu usuario y/o contraseña son incorrectos</li>';
-	    	echo "SELECT * FROM usuario WHERE usuario = $usuario AND password = $password";
+	    	echo "<div>    		 													 
+						<p><strong><center>Tu usuario y/o contraseña son incorrectos</center></strong></p>
+		          </div>";
+	    	
 	  	}
 	}
 	require '../views/login.view.php';

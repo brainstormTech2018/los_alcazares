@@ -57,7 +57,7 @@ $curso = $_GET['codigo'];
             </div>
 
             
-            <ul class="nav">
+          <ul class="nav">
                 <li class="active">
                     <a href="index.php">
                         <i class="pe-7s-culture"></i>
@@ -77,6 +77,12 @@ $curso = $_GET['codigo'];
                     
                         <i class="pe-7s-graph"></i>
                         <p>Docente</p>
+                    </a>
+                </li>
+                <li>
+                    <a href="view-planeacion.php">
+                        <i class="pe-7s-date"></i>
+                        <p>Planeación</p>
                     </a>
                 </li>                   
             </ul>

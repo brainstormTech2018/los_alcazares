@@ -20,6 +20,7 @@
 
 <body class="login-page sidebar-collapse">
     <!-- Navbar -->
+   
     <nav class="navbar navbar-expand-lg bg-primary fixed-top navbar-transparent " color-on-scroll="400">
         <div class="container">
             <div class="navbar-translate">
@@ -84,7 +85,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>, LOS ALCAZARES. Todos los Derechos Reservados | Diseñada por
-                    <i>Multitechnis S.A.S.</i>
+                    <i>Brainstorm Technology</i>
                 </div>
             </div>
         </footer>
