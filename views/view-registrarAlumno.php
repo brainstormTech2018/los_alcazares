@@ -229,6 +229,20 @@ if (isset($_SESSION["usuario"] )) {
                                                     </select>
                                                 </div>
                                             </div>
+
+                                             <div class="col-md-6">
+                                                <label>Jornada</label>
+                                                <div class="form-group">
+                                                    <select class="form-control" name="alu_jornada" id="alu_jornada" required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <option value="1">Mañana</option>
+                                                        <option value="2">Tarde</option>
+                                                        <option value="3">Sabados</option>
+                                                        
+
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
@@ -314,15 +328,17 @@ if (isset($_SESSION["usuario"] )) {
         var email = $("#alu_correo").val();
         var activo = $("#alu_activo").val();
         var curso = $("#alu_curso").val();
+        var jornada = $("#alu_jornada").val();
 
 
       $.ajax({   
        type: "POST",
        url:"../control/registro_alumnos.php",
-       data:{"insertar":accion,"alu_documento":documento,"alu_nombre":nombre, "alu_apellido":apellido, "alu_direccion":direccion, "alu_telefono":telefono, "alu_correo":email, "alu_identificacion":identificacion,"alu_activo":activo, "alu_curso":curso},
+       data:{"insertar":accion,"alu_documento":documento,"alu_nombre":nombre, "alu_apellido":apellido, "alu_direccion":direccion, "alu_telefono":telefono, "alu_correo":email, "alu_identificacion":identificacion,"alu_activo":activo, "alu_curso":curso,"alu_jornada":jornada},
        success: function(notify){       
      $('#notify').html(notify);
          //alert(activo);        
+         
      }
        
      });}

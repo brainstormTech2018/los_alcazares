@@ -84,6 +84,20 @@ $html = '                              <form method="POST" id="client">
 
                                                     </select>
                                                 </div>
+
+                                            </div>
+                                            <div class="col-md-6">
+                                                <label>Jornada</label>
+                                                <div class="form-group">
+                                                    <select class="form-control" name="alu_jornada" id="alu_jornada" required>
+                                                        <option value="" disabled selected>Elige una opción</option>
+                                                        <option value="1">Mañana</option>
+                                                        <option value="2">Tarde</option>
+                                                        <option value="3">Sabados</option>
+                                                        
+
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="row">

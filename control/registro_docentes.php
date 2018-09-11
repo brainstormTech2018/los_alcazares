@@ -58,7 +58,7 @@ switch ($accion) {
 										<button type='button' class='close' data-dismiss='alert' aria-label='Close'>
 											clear
 										</button>
-						                 <b>".$sql1."</b>
+						                 <b>DOCENTE NO REGISTRADO</b>
 						            </div>
 						        </div>";
 				}

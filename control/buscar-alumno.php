@@ -158,7 +158,37 @@ $html = '<form method="POST" id="client">
                                                         
                                                 $html.='</select>
                                                 </div>
+
+                                               
                                             </div>
+                                             <div class="col-md-6">
+                                                    <label>Jornada</label>
+                                                         <div class="form-group">
+                                                         <select class="form-control" name="alu_jornada" id="alu_jornada" required>';
+                                                         switch ($rowsN['estudiante_jornada']){
+                                                        case '1':
+                                                        $html.='<option value="1">Mañana</option>
+                                                        <option value="2">Tarde</option>
+                                                        <option value="3">Sabados</option>';
+                                                        break;
+
+                                                        case '2':
+                                                        $html.='<option value="1">Mañana</option>
+                                                        <option value="2">Tarde</option>
+                                                        <option value="3">Sabados</option>';
+                                                        break;
+
+                                                        case '3':
+                                                        $html.='<option value="1">Mañana</option>
+                                                        <option value="2">Tarde</option>
+                                                        <option value="3">Sabados</option>';
+                                                        break;
+
+                                                         }
+
+                                                         $html.='</select>
+                                                         </div>
+                                                 </div>
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
