@@ -338,7 +338,7 @@ if (isset($_SESSION["usuario"] )) {
        success: function(notify){       
      $('#notify').html(notify);
          //alert(activo);        
-         
+
      }
        
      });}
